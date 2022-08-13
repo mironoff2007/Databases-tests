@@ -7,3 +7,6 @@
 .cxx
 local.properties
 /.idea/
+/gradle/wrapper/gradle-wrapper.jar
+/gradlew
+/gradlew.bat
