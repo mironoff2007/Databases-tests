@@ -2,7 +2,7 @@ package ru.mironov.roomdb
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.mironov.databasestests.BaseTestDto
+import ru.mironov.domain.BaseTestDto
 
 @Entity
 data class TestObject(

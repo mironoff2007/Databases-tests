@@ -19,4 +19,7 @@ interface TestDao {
     @Query("DELETE FROM $DB_NAME")
     fun resetTable( )
 
+    @Query("DELETE FROM sqlite_sequence")
+    fun resetCounter()
+
 }

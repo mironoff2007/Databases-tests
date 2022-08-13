@@ -13,26 +13,19 @@ class DbTest {
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    /*@Test
+    @Test
     fun addAndGetTest() {
 
         val dao = TestDatabase.getDatabase(appContext).testDao()
 
-        //TestDatabase.getDatabase(appContext).clearAllTables()
-
         dao.resetTable()
+        dao.resetCounter()
 
         dao.addObject(TestObject(name = "name 1"))
         dao.addObject(TestObject(name = "name 2"))
 
         val list = dao.getObjects()
         assertEquals(list.size, 2)
-    }*/
-
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("ru.mironov.databasestests", appContext.packageName)
     }
+
 }
