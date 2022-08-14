@@ -16,3 +16,4 @@ rootProject.name = "Databases tests"
 include ':app'
 include ':roomdb'
 include ':domain'
+include ':sqlite'

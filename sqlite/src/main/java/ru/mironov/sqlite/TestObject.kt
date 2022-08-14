@@ -1,12 +1,9 @@
-package ru.mironov.roomdb
+package ru.mironov.sqlite
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import ru.mironov.domain.BaseTestDto
 
-@Entity
+
 data class TestObject(
-    @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     override val name: String,
     override val date: String,
@@ -14,7 +11,8 @@ data class TestObject(
 ): BaseTestDto(name, date, foreignId) {
 
     companion object {
-        const val DB_NAME = "db_room"
+        const val DB_NAME = "db_sqlite"
         const val TABLE_NAME = "TestObject"
     }
+
 }

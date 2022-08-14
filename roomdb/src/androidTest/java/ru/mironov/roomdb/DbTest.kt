@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.*
 
 
 @RunWith(AndroidJUnit4::class)
@@ -21,8 +22,8 @@ class DbTest {
         dao.resetTable()
         dao.resetCounter()
 
-        dao.addObject(TestObject(name = "name 1"))
-        dao.addObject(TestObject(name = "name 2"))
+        dao.addObject(TestObject(name = "name 1", date = Date().toString(), foreignId = 1))
+        dao.addObject(TestObject(name = "name 2", date = Date().toString(), foreignId = 2))
 
         val list = dao.getObjects()
         assertEquals(list.size, 2)
