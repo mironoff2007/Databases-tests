@@ -45,11 +45,14 @@ class DbTest {
         dao.resetTable()
         dao.resetCounter()
 
+        val count = dao.getObjects().size
+
+        assertEquals(count, 0)
+
         val counter = TimeCounter()
         counter.start()
         list.forEach {
             dao.addObject(it)
-
         }
         counter.end()
 

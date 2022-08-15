@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.delay
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -56,8 +57,13 @@ class DbTest {
         val dbHelper = DBHelper(appContext)
 
         dbHelper.drop()
+        dbHelper.create()
 
         val list = TestObject.createMockList(1000)
+
+        val objects = dbHelper.getTestObjects()
+
+        assertEquals(objects.size, 0)
 
         val counter = TimeCounter()
         counter.start()
@@ -68,7 +74,7 @@ class DbTest {
 
         Log.d("Test_tag", "${name.methodName} time - " + counter.calcTimeMillis())
 
-        assert(true)
+        assertEquals(dbHelper.getTestObjects().size, 1000)
     }
 
 }
