@@ -1,15 +1,22 @@
 package ru.mironov.sqlite
 
 import android.content.Context
+import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
 import org.junit.runner.RunWith
+import ru.mironov.domain.TimeCounter
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class DbTest {
+
+    @get:Rule
+    var name: TestName = TestName()
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -41,6 +48,27 @@ class DbTest {
         val objects = dbHelper.getTestObjects()
 
         assertEquals(objects.size, 2)
+    }
+
+    @Test
+    fun insertTest() {
+
+        val dbHelper = DBHelper(appContext)
+
+        dbHelper.drop()
+
+        val list = TestObject.createMockList(1000)
+
+        val counter = TimeCounter()
+        counter.start()
+        list.forEach {
+            dbHelper.insert(it)
+        }
+        counter.end()
+
+        Log.d("Test_tag", "${name.methodName} time - " + counter.calcTimeMillis())
+
+        assert(true)
     }
 
 }
