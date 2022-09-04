@@ -8,7 +8,7 @@ import ru.mironov.roomdb.TestObject.Companion.TABLE_NAME
 interface TestDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addObject(videoHistory: TestObject)
+    fun add(videoHistory: TestObject)
 
     @Query("SELECT * FROM $TABLE_NAME Where $ID_FIELD_NAME Like :id")
     fun getObject(id: Int): TestObject
@@ -17,7 +17,7 @@ interface TestDao {
     fun getObjects(): List<TestObject>
 
     @Query("DELETE FROM $TABLE_NAME")
-    fun resetTable( )
+    fun resetTable()
 
     @Query("DELETE FROM sqlite_sequence")
     fun resetCounter()

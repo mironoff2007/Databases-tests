@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import ru.mironov.domain.BaseTestDto
 import ru.mironov.domain.BaseTestDto.Companion.DATE_FIELD_NAME
 import ru.mironov.domain.BaseTestDto.Companion.FOREIGN_ID_FIELD_NAME
 import ru.mironov.domain.BaseTestDto.Companion.NAME_FIELD_NAME
@@ -28,11 +29,11 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         onUpgrade(db, oldVersion, newVersion)
     }
 
-    fun insert(obj: TestObject) {
+    fun add(obj: BaseTestDto) {
         val db = this.writableDatabase
 
         val values = ContentValues().apply {
-            put(ID_FIELD_NAME, obj.id)
+            put(ID_FIELD_NAME, (obj as TestObject).id)
             put(NAME_FIELD_NAME, obj.name)
             put(DATE_FIELD_NAME, obj.date)
             put(FOREIGN_ID_FIELD_NAME, obj.foreignId)
@@ -99,9 +100,15 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         val db = this.writableDatabase
         db.execSQL(SQL_DELETE_ENTRIES)
     }
-   fun create() {
-       val db = this.writableDatabase
+
+    fun create() {
+        val db = this.writableDatabase
         db.execSQL(SQL_CREATE_ENTRIES)
+    }
+
+    fun resetTable() {
+        drop()
+        create()
     }
 
     companion object {

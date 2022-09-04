@@ -4,31 +4,32 @@ import android.content.Context
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import kotlinx.coroutines.delay
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
+import ru.mironov.domain.Constants.ADD_COUNT
+import ru.mironov.domain.Constants.REPEAT_COUNT
 import ru.mironov.domain.TimeCounter
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-class DbTest {
+class RawSQLiteDbTest {
 
     @get:Rule
     var name: TestName = TestName()
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
+    private val dao = DBHelper(appContext)
+
     @Test
     fun addAndGetTest() {
 
-        val dbHelper = DBHelper(appContext)
+        dao.resetTable()
 
-        dbHelper.drop()
-
-        dbHelper.insert(
+        dao.add(
             TestObject(
                 id = 1,
                 name = "name 1",
@@ -37,7 +38,7 @@ class DbTest {
             )
         )
 
-        dbHelper.insert(
+        dao.add(
             TestObject(
                 id = 2,
                 name = "name 2",
@@ -46,7 +47,7 @@ class DbTest {
             )
         )
 
-        val objects = dbHelper.getTestObjects()
+        val objects = dao.getTestObjects()
 
         assertEquals(objects.size, 2)
     }
@@ -54,27 +55,32 @@ class DbTest {
     @Test
     fun insertTest() {
 
-        val dbHelper = DBHelper(appContext)
+        val list = TestObject.createMockList(ADD_COUNT)
 
-        dbHelper.drop()
-        dbHelper.create()
-
-        val list = TestObject.createMockList(1000)
-
-        val objects = dbHelper.getTestObjects()
+        dao.resetTable()
+        val objects = dao.getTestObjects()
 
         assertEquals(objects.size, 0)
 
         val counter = TimeCounter()
+
         counter.start()
-        list.forEach {
-            dbHelper.insert(it)
+        repeat(REPEAT_COUNT) {
+            list.forEach {
+                dao.add(it)
+            }
+            counter.next()
+
+            counter.pause()
+            dao.resetTable()
+            counter.resume()
+
         }
-        counter.end()
 
-        Log.d("Test_tag", "${name.methodName} time - " + counter.calcTimeMillis())
+        Log.d("Test_tag", "${this.javaClass.name}.${name.methodName} avg time - " + counter.getAvg())
+        Log.d("Test_tag", "${this.javaClass.name}.${name.methodName} worst time - " + counter.getWorst())
 
-        assertEquals(dbHelper.getTestObjects().size, 1000)
+        assertEquals(list.size, ADD_COUNT)
     }
 
 }
