@@ -1,6 +1,6 @@
 package ru.mironov.sqlite
 
-import ru.mironov.domain.BaseTestDto
+import ru.mironov.domain.BaseTestDTO
 import java.util.*
 
 
@@ -9,7 +9,7 @@ data class TestObject(
     override val name: String,
     override val date: String,
     override val foreignId: Int
-): BaseTestDto(name, date, foreignId) {
+): BaseTestDTO(name, date, foreignId) {
 
     companion object {
         const val DB_NAME = "db_sqlite"
@@ -18,12 +18,13 @@ data class TestObject(
         fun createMockList(size: Int): MutableList<TestObject> {
             val list = mutableListOf<TestObject>()
             repeat(size) {
+                val ind = it + 1
                 list.add(
                     TestObject(
-                        id = it.toLong(),
-                        name = "name $it",
+                        id = ind.toLong(),
+                        name = "name $ind",
                         date = Date().toString(),
-                        foreignId = it)
+                        foreignId = ind)
                 )
             }
             return list

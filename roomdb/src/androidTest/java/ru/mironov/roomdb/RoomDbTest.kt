@@ -3,7 +3,7 @@ package ru.mironov.roomdb
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
@@ -29,6 +29,21 @@ class RoomDbTest {
         dbTest.insertTest(list)
 
         assert(true)
+    }
+
+    @Test
+    fun insertAllTest() {
+        val list = TestObject.createMockList(ADD_COUNT)
+
+        val assertClear = fun(count: Int) {
+            Assert.assertEquals(count, 0)
+        }
+
+        val assertAddedCount = fun(count: Int) {
+            Assert.assertEquals(count, ADD_COUNT)
+        }
+
+        dbTest.insertAllTest(list, assertClear, assertAddedCount)
     }
 
 }

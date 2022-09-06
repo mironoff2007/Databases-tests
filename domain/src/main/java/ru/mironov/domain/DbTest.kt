@@ -6,7 +6,7 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     private val counter = TimeCounter()
 
-    fun insertTest(list: List<BaseTestDto>) {
+    fun insertTest(list: List<BaseTestDTO>) {
         dao.resetTable()
 
         counter.start()
@@ -16,7 +16,29 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
         counter.end()
 
-        Log.d(TAG, "$testName.insertTest avg time;" + counter.calcTimeMillis())
+        Log.d(TAG, "$testName.insertTest time;" + counter.calcTimeMillis())
+
+    }
+
+    fun insertAllTest(
+        list: List<BaseTestDTO>,
+        assertClear: (Int) -> Unit,
+        assertAddedCount: (Int) -> Unit
+    ) {
+        dao.resetTable()
+        var count = dao.getRowsCount()
+        assertClear.invoke(count)
+
+        counter.start()
+
+        dao.insertAll(list)
+
+        counter.end()
+
+        count = dao.getRowsCount()
+        assertAddedCount.invoke(count)
+
+        Log.d(TAG, "$testName.insertTest time;" + counter.calcTimeMillis())
 
     }
 

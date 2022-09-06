@@ -5,11 +5,11 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import ru.mironov.domain.BaseTestDto
-import ru.mironov.domain.BaseTestDto.Companion.DATE_FIELD_NAME
-import ru.mironov.domain.BaseTestDto.Companion.FOREIGN_ID_FIELD_NAME
-import ru.mironov.domain.BaseTestDto.Companion.NAME_FIELD_NAME
-import ru.mironov.domain.BaseTestDto.Companion.ID_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO
+import ru.mironov.domain.BaseTestDTO.Companion.DATE_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO.Companion.FOREIGN_ID_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO.Companion.NAME_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO.Companion.ID_FIELD_NAME
 import ru.mironov.sqlite.TestObject.Companion.DB_NAME
 import ru.mironov.sqlite.TestObject.Companion.TABLE_NAME
 
@@ -29,7 +29,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         onUpgrade(db, oldVersion, newVersion)
     }
 
-    fun add(obj: BaseTestDto) {
+    fun add(obj: BaseTestDTO) {
         val db = this.writableDatabase
 
         val values = ContentValues().apply {
@@ -40,6 +40,30 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         }
 
         db?.insert(TABLE_NAME, null, values)
+    }
+
+    fun insertAll(list: List<BaseTestDTO>) {
+        val db = this.writableDatabase
+        val stringBuilder = StringBuilder()
+        list.forEach { obj ->
+            stringBuilder.apply {
+                append(" (")
+                append((obj as TestObject).id.toString())
+                append(", ")
+                append("'")
+                append(obj.name)
+                append("'")
+                append(", ")
+                append("'")
+                append(obj.date)
+                append("'")
+                append(", ")
+                append(obj.foreignId)
+                append("),")
+            }
+        }
+        stringBuilder.deleteCharAt(stringBuilder.lastIndex)
+        db.execSQL(SQL_INSERT_INTO + stringBuilder.toString())
     }
 
     @SuppressLint("Range")
@@ -111,6 +135,15 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         create()
     }
 
+    fun getRowsCount(): Int {
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(SQL_ROWS_COUNT, null)
+        return if (cursor.count > 0) {
+            cursor.moveToFirst()
+            cursor.getInt("COUNT(*)") ?: 0
+        } else 0
+    }
+
     companion object {
         // If you change the database schema, you must increment the database version.
         const val DATABASE_VERSION = 1
@@ -121,6 +154,16 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
                     "$NAME_FIELD_NAME TEXT," +
                     "$DATE_FIELD_NAME TEXT," +
                     "$FOREIGN_ID_FIELD_NAME INTEGER)"
+
+        private const val SQL_INSERT_INTO =
+            "INSERT INTO $TABLE_NAME (" +
+                    "$ID_FIELD_NAME ," +
+                    "$NAME_FIELD_NAME ," +
+                    "$DATE_FIELD_NAME ," +
+                    "$FOREIGN_ID_FIELD_NAME ) " +
+                    "VALUES"
+
+        private const val SQL_ROWS_COUNT = "SELECT COUNT(*) FROM $TABLE_NAME "
 
         private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS $TABLE_NAME"
     }

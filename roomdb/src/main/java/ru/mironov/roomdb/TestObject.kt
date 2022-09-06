@@ -2,7 +2,7 @@ package ru.mironov.roomdb
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.mironov.domain.BaseTestDto
+import ru.mironov.domain.BaseTestDTO
 import java.util.*
 
 @Entity
@@ -12,7 +12,7 @@ data class TestObject(
     override val name: String,
     override val date: String,
     override val foreignId: Int
-): BaseTestDto(name, date, foreignId) {
+): BaseTestDTO(name, date, foreignId) {
 
     companion object {
         const val DB_NAME = "db_room"
@@ -21,12 +21,13 @@ data class TestObject(
         fun createMockList(size: Int): List<TestObject> {
             val list = mutableListOf<TestObject>()
             repeat(size) {
+                val ind = it + 1
                 list.add(
                     TestObject(
-                        id = it.toLong(),
-                        name = "name $it",
+                        id = ind.toLong(),
+                        name = "name $ind",
                         date = Date().toString(),
-                        foreignId = it)
+                        foreignId = ind)
                 )
             }
             return list
