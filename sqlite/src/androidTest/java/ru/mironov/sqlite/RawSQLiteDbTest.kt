@@ -19,15 +19,22 @@ class RawSQLiteDbTest {
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    private val dbTest = DbTest(TestDaoSQLite(appContext), this.javaClass.name)
+    private val dbTest = DbTest(DaoSQLite(appContext), this.javaClass.name)
 
     @Test
     fun insertTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
-        dbTest.insertTest(list)
+        val assertClear = fun(count: Int) {
+            assertEquals(count, 0)
+        }
 
-        assert(true)
+        val assertAddedCount = fun(count: Int) {
+            assertEquals(count, ADD_COUNT)
+        }
+
+        dbTest.insertTest(list, assertClear, assertAddedCount)
+
     }
 
     @Test

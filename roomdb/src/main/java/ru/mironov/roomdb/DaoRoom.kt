@@ -4,7 +4,7 @@ import android.content.Context
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
 
-class TestDaoRoom(context: Context): BaseDao {
+class DaoRoom(context: Context): BaseDao {
 
     private val dao = TestDatabase.getDatabase(context).testDao()
 

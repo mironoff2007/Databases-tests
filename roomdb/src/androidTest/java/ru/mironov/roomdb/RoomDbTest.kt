@@ -20,15 +20,22 @@ class RoomDbTest {
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    private val dbTest = DbTest(TestDaoRoom(appContext),  this.javaClass.name)
+    private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
 
     @Test
     fun insertTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
-        dbTest.insertTest(list)
+        val assertClear = fun(count: Int) {
+            Assert.assertEquals(count, 0)
+        }
 
-        assert(true)
+        val assertAddedCount = fun(count: Int) {
+            Assert.assertEquals(count, ADD_COUNT)
+        }
+
+        dbTest.insertTest(list, assertClear, assertAddedCount)
+
     }
 
     @Test

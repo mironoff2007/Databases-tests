@@ -4,7 +4,7 @@ import android.content.Context
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
 
-class TestDaoSQLite(context: Context): BaseDao {
+class DaoSQLite(context: Context): BaseDao {
 
     private val dao = DBHelper(context)
 
