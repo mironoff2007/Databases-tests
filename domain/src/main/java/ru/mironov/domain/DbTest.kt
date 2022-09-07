@@ -6,7 +6,7 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     private val counter = TimeCounter()
 
-    fun insertTest(
+    fun insertBySingleEmptyDBnoConfTest(
         list: List<BaseTestDTO>,
         assertClear: (Int) -> Unit,
         assertAddedCount: (Int) -> Unit
@@ -29,7 +29,7 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     }
 
-    fun insertAllTest(
+    fun insertAllEmptyDBnoConfTest(
         list: List<BaseTestDTO>,
         assertClear: (Int) -> Unit,
         assertAddedCount: (Int) -> Unit

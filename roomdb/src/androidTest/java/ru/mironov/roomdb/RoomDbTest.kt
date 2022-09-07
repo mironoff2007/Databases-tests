@@ -23,7 +23,7 @@ class RoomDbTest {
     private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
 
     @Test
-    fun insertTest() {
+    fun insertBySingleEmptyDBnoConfTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {
@@ -34,12 +34,12 @@ class RoomDbTest {
             Assert.assertEquals(count, ADD_COUNT)
         }
 
-        dbTest.insertTest(list, assertClear, assertAddedCount)
+        dbTest.insertBySingleEmptyDBnoConfTest(list, assertClear, assertAddedCount)
 
     }
 
     @Test
-    fun insertAllTest() {
+    fun insertAllEmptyDBnoConfTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {
@@ -50,7 +50,7 @@ class RoomDbTest {
             Assert.assertEquals(count, ADD_COUNT)
         }
 
-        dbTest.insertAllTest(list, assertClear, assertAddedCount)
+        dbTest.insertAllEmptyDBnoConfTest(list, assertClear, assertAddedCount)
     }
 
 }
