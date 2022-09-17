@@ -16,6 +16,10 @@ class DaoSQLite(context: Context): BaseDao {
        dao.insertAll(list)
     }
 
+    override fun insertAllRawQuery(list: List<BaseTestDTO>) {
+        dao.insertAll(list)
+    }
+
     override fun getAll(): List<BaseTestDTO> {
         return dao.getTestObjects()
     }

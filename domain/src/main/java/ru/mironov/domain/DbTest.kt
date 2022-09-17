@@ -51,6 +51,28 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     }
 
+    fun insertAllRawEmptyDBnoConfTest(
+        list: List<BaseTestDTO>,
+        assertClear: (Int) -> Unit,
+        assertAddedCount: (Int) -> Unit
+    ) {
+        dao.resetTable()
+        var count = dao.getRowsCount()
+        assertClear.invoke(count)
+
+        counter.start()
+
+        dao.insertAllRawQuery(list)
+
+        counter.end()
+
+        count = dao.getRowsCount()
+        assertAddedCount.invoke(count)
+
+        Log.d(TAG, "$testName.insertTestAllRawQuery time;" + counter.calcTimeMillis())
+
+    }
+
     fun add(list: List<BaseTestDTO>){
         val maxSize=999
         if(list.size>maxSize){

@@ -1,6 +1,7 @@
 package ru.mironov.roomdb
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import ru.mironov.domain.BaseTestDTO.Companion.ID_FIELD_NAME
 import ru.mironov.roomdb.TestObject.Companion.TABLE_NAME
 
@@ -12,6 +13,9 @@ interface TestDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg obj: TestObject)
+
+    @RawQuery
+    fun insertAllBatch(query: SupportSQLiteQuery): Boolean
 
     @Query("SELECT * FROM $TABLE_NAME Where $ID_FIELD_NAME Like :id")
     fun getObject(id: Int): TestObject

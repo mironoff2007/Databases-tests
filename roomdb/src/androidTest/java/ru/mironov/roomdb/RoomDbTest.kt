@@ -53,4 +53,19 @@ class RoomDbTest {
         dbTest.insertAllEmptyDBnoConfTest(list, assertClear, assertAddedCount)
     }
 
+    @Test
+    fun insertAllRawQueryEmptyDBnoConfTest() {
+        val list = TestObject.createMockList(ADD_COUNT)
+
+        val assertClear = fun(count: Int) {
+            Assert.assertEquals(count, 0)
+        }
+
+        val assertAddedCount = fun(count: Int) {
+            Assert.assertEquals(count, ADD_COUNT)
+        }
+
+        dbTest.insertAllRawEmptyDBnoConfTest(list, assertClear, assertAddedCount)
+    }
+
 }
