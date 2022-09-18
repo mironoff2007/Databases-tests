@@ -8,6 +8,8 @@ interface BaseDao {
 
     fun insertAllRawQuery(list: List<BaseTestDTO>)
 
+    fun insertAllTransaction(list: List<BaseTestDTO>)
+
     fun getAll(): List<BaseTestDTO>
 
     fun resetTable()

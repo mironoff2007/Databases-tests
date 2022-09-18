@@ -20,6 +20,10 @@ class DaoSQLite(context: Context): BaseDao {
         dao.insertAll(list)
     }
 
+    override fun insertAllTransaction(list: List<BaseTestDTO>) {
+        dao.insertAllWithTransaction(list)
+    }
+
     override fun getAll(): List<BaseTestDTO> {
         return dao.getTestObjects()
     }

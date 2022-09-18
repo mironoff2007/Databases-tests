@@ -51,6 +51,10 @@ class DaoRoom(context: Context) : BaseDao {
         dao.insertAllBatch(SimpleSQLiteQuery(insertInto + stringBuilder.toString()))
     }
 
+    override fun insertAllTransaction(list: List<BaseTestDTO>) {
+
+    }
+
     override fun getAll(): List<BaseTestDTO> {
         return dao.getObjects()
     }
