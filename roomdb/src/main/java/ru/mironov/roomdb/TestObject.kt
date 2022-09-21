@@ -7,12 +7,13 @@ import java.util.*
 
 @Entity
 data class TestObject(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
     override val name: String,
     override val date: String,
     override val foreignId: Int
 ): BaseTestDTO(name, date, foreignId) {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L
 
     companion object {
         const val DB_NAME = "db_room"
@@ -24,7 +25,6 @@ data class TestObject(
                 val ind = it + 1
                 list.add(
                     TestObject(
-                        id = ind.toLong(),
                         name = "name $ind",
                         date = Date().toString(),
                         foreignId = ind)

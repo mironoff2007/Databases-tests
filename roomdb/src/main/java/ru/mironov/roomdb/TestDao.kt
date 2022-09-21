@@ -14,6 +14,10 @@ interface TestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg obj: TestObject)
 
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllTransaction(vararg obj: TestObject)
+
     @RawQuery
     fun insertAllBatch(query: SupportSQLiteQuery): Boolean
 

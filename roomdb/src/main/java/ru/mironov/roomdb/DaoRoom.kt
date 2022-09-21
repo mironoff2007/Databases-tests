@@ -21,12 +21,14 @@ class DaoRoom(context: Context) : BaseDao {
     }
 
     override fun insertAllRawQuery(list: List<BaseTestDTO>) {
+        dao.insertAllBatch(insertQuery(list))
+    }
+
+    private fun insertQuery(list: List<BaseTestDTO>): SimpleSQLiteQuery {
         val stringBuilder = StringBuilder()
         list.forEach { obj ->
             stringBuilder.apply {
                 append(" (")
-                append((obj as TestObject).id.toString())
-                append(", ")
                 append("'")
                 append(obj.name)
                 append("'")
@@ -41,18 +43,18 @@ class DaoRoom(context: Context) : BaseDao {
         }
         stringBuilder.deleteCharAt(stringBuilder.lastIndex)
 
-        val insertInto =
-            "INSERT INTO $TABLE_NAME (" +
-                    "${BaseTestDTO.ID_FIELD_NAME} ," +
+        val insertInto =  "INSERT INTO $TABLE_NAME (" +
                     "${BaseTestDTO.NAME_FIELD_NAME} ," +
                     "${BaseTestDTO.DATE_FIELD_NAME} ," +
                     "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +
                     "VALUES"
-        dao.insertAllBatch(SimpleSQLiteQuery(insertInto + stringBuilder.toString()))
+        return SimpleSQLiteQuery(insertInto + stringBuilder.toString())
     }
 
     override fun insertAllTransaction(list: List<BaseTestDTO>) {
-
+        val castedList = list as List<TestObject>
+        val typedArr = castedList.toTypedArray()
+        dao.insertAllTransaction(*typedArr)
     }
 
     override fun getAll(): List<BaseTestDTO> {

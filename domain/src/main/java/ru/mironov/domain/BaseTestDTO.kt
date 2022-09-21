@@ -1,6 +1,6 @@
 package ru.mironov.domain
 
-open class BaseTestDTO(
+abstract class BaseTestDTO(
     open val name: String,
     open val date: String,
     open val foreignId: Int
