@@ -108,6 +108,28 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
         else dao.insertAll(list)
     }
 
+    fun insertMillionTest(
+        list: List<BaseTestDTO>,
+        assertClear: (Int) -> Unit,
+        assertAddedCount: (Int) -> Unit
+    ) {
+        dao.resetTable()
+        var count = dao.getRowsCount()
+        assertClear.invoke(count)
+
+        counter.start()
+
+        dao.insertLoop(list)
+
+        counter.end()
+
+        count = dao.getRowsCount()
+        assertAddedCount.invoke(count)
+
+        Log.d(TAG, "$testName.insertLoop time;" + counter.calcTimeMillis())
+
+    }
+
     companion object {
         const val TAG = "Test_tag"
     }

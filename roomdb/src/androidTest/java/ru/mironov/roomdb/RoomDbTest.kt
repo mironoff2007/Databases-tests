@@ -9,6 +9,7 @@ import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import ru.mironov.domain.Constants.ADD_COUNT
+import ru.mironov.domain.Constants.ADD_MILLION
 import ru.mironov.domain.DbTest
 
 
@@ -81,6 +82,21 @@ class RoomDbTest {
         }
 
         dbTest.insertAllTransactionTest(list, assertClear, assertAddedCount)
+    }
+
+    @Test
+    fun insertMillionTest() {
+        val list = TestObject.createMockList(ADD_MILLION)
+
+        val assertClear = fun(count: Int) {
+            Assert.assertEquals(count, 0)
+        }
+
+        val assertAddedCount = fun(count: Int) {
+            Assert.assertEquals(count, ADD_MILLION)
+        }
+
+        dbTest.insertMillionTest(list, assertClear, assertAddedCount)
     }
 
 }

@@ -4,6 +4,8 @@ interface BaseDao {
 
     fun insert(obj: BaseTestDTO)
 
+    fun insertLoop(list: List<BaseTestDTO>)
+
     fun insertAll(list: List<BaseTestDTO>)
 
     fun insertAllRawQuery(list: List<BaseTestDTO>)
