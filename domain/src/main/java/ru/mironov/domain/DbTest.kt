@@ -95,19 +95,6 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     }
 
-    fun add(list: List<BaseTestDTO>){
-        val maxSize=999
-        if(list.size>maxSize){
-            val listCount = list.size/maxSize
-            repeat(listCount){
-                val subList = list.subList(it*maxSize, (it+1)*maxSize-1)
-                dao.insertAll(subList
-                )
-            }
-        }
-        else dao.insertAll(list)
-    }
-
     fun insertMillionTest(
         list: List<BaseTestDTO>,
         assertClear: (Int) -> Unit,

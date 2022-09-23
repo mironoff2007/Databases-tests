@@ -29,8 +29,6 @@ class DaoRoom(context: Context) : BaseDao {
         dao.insertAllBatch(dao.insertQuery(list))
     }
 
-
-
     override fun insertAllTransaction(list: List<BaseTestDTO>) {
         val castedList = list as List<TestObject>
         val typedArr = castedList.toTypedArray()

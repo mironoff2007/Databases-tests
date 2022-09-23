@@ -169,12 +169,12 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         }
     }
 
-    fun drop() {
+    private fun drop() {
         val db = this.writableDatabase
         db.execSQL(SQL_DELETE_ENTRIES)
     }
 
-    fun create() {
+    private fun create() {
         val db = this.writableDatabase
         db.execSQL(SQL_CREATE_ENTRIES)
     }

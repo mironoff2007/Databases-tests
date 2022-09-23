@@ -21,21 +21,20 @@ interface TestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllTransaction(vararg obj: TestObject)
 
-
     @RawQuery
     fun insertAllBatch(query: SupportSQLiteQuery): Boolean
 
     @Transaction
     fun inInsertLoop(list: List<BaseTestDTO>) {
-            val repeatCount = list.size/ Constants.ADD_COUNT + 1
-            repeat(repeatCount){
-                val startPos = it * Constants.ADD_COUNT
-                var endPos = startPos + Constants.ADD_COUNT
-                if (endPos > list.size - 1) endPos = list.size
-                val subList = list.subList(startPos, endPos)
-                if(subList.isNotEmpty()) insertAllBatch(insertQuery(subList))
-            }
+        val repeatCount = list.size / Constants.ADD_COUNT + 1
+        repeat(repeatCount) {
+            val startPos = it * Constants.ADD_COUNT
+            var endPos = startPos + Constants.ADD_COUNT
+            if (endPos > list.size - 1) endPos = list.size
+            val subList = list.subList(startPos, endPos)
+            if (subList.isNotEmpty()) insertAllBatch(insertQuery(subList))
         }
+    }
 
     fun insertQuery(list: List<BaseTestDTO>): SimpleSQLiteQuery {
         val stringBuilder = StringBuilder()
@@ -57,7 +56,7 @@ interface TestDao {
         var lastInd = stringBuilder.lastIndex
         if (lastInd > 0) stringBuilder.deleteCharAt(lastInd)
 
-        val insertInto =  "INSERT INTO $TABLE_NAME (" +
+        val insertInto = "INSERT INTO $TABLE_NAME (" +
                 "${BaseTestDTO.NAME_FIELD_NAME} ," +
                 "${BaseTestDTO.DATE_FIELD_NAME} ," +
                 "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +

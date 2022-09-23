@@ -3,7 +3,6 @@ package ru.mironov.sqlite
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -74,11 +73,11 @@ class RawSQLiteDbTest {
         val list = TestObject.createMockList(Constants.ADD_MILLION)
 
         val assertClear = fun(count: Int) {
-            Assert.assertEquals(count, 0)
+            assertEquals(count, 0)
         }
 
         val assertAddedCount = fun(count: Int) {
-            Assert.assertEquals(Constants.ADD_MILLION, count)
+            assertEquals(Constants.ADD_MILLION, count)
         }
 
         dbTest.insertMillionTest(list, assertClear, assertAddedCount)
