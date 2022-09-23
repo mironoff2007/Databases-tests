@@ -10,6 +10,7 @@ import ru.mironov.domain.BaseTestDTO.Companion.DATE_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.FOREIGN_ID_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.NAME_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.ID_FIELD_NAME
+import ru.mironov.domain.Constants
 import ru.mironov.sqlite.TestObject.Companion.DB_NAME
 import ru.mironov.sqlite.TestObject.Companion.TABLE_NAME
 
@@ -44,12 +45,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
 
     fun insertAll(list: List<BaseTestDTO>) {
         val db = this.writableDatabase
+        db.execSQL(SQL_INSERT_INTO + getInsertAllString(list))
+    }
+
+    private fun getInsertAllString(list: List<BaseTestDTO>): String {
         val stringBuilder = StringBuilder()
         list.forEach { obj ->
             stringBuilder.apply {
                 append(" (")
-                append((obj as TestObject).id.toString())
-                append(", ")
                 append("'")
                 append(obj.name)
                 append("'")
@@ -63,7 +66,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
             }
         }
         stringBuilder.deleteCharAt(stringBuilder.lastIndex)
-        db.execSQL(SQL_INSERT_INTO + stringBuilder.toString())
+        return stringBuilder.toString()
     }
 
     fun insertAllWithTransaction(list: List<BaseTestDTO>) {
@@ -89,6 +92,25 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         }
         stringBuilder.deleteCharAt(stringBuilder.lastIndex)
         db.execSQL(SQL_INSERT_INTO + stringBuilder.toString())
+        db.setTransactionSuccessful()
+        db.endTransaction()
+    }
+
+    fun insertAllLoop(list: List<BaseTestDTO>) {
+        val db = this.writableDatabase
+        db.beginTransaction()
+        val repeatCount = list.size / Constants.ADD_COUNT + 1
+        repeat(repeatCount) {
+            val startPos = it * Constants.ADD_COUNT
+            var endPos = startPos + Constants.ADD_COUNT
+            if (endPos > list.size - 1) endPos = list.size
+            val subList = list.subList(startPos, endPos)
+
+            if (subList.isNotEmpty()) {
+                val insertString = getInsertAllString(subList)
+                db.execSQL(SQL_INSERT_INTO_AUTOINCREMENT + insertString)
+            }
+        }
         db.setTransactionSuccessful()
         db.endTransaction()
     }
@@ -177,7 +199,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
 
         private const val SQL_CREATE_ENTRIES =
             "CREATE TABLE $TABLE_NAME (" +
-                    "$ID_FIELD_NAME LONG PRIMARY KEY," +
+                    "$ID_FIELD_NAME INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "$NAME_FIELD_NAME TEXT," +
                     "$DATE_FIELD_NAME TEXT," +
                     "$FOREIGN_ID_FIELD_NAME INTEGER)"
@@ -185,6 +207,13 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         private const val SQL_INSERT_INTO =
             "INSERT INTO $TABLE_NAME (" +
                     "$ID_FIELD_NAME ," +
+                    "$NAME_FIELD_NAME ," +
+                    "$DATE_FIELD_NAME ," +
+                    "$FOREIGN_ID_FIELD_NAME ) " +
+                    "VALUES"
+
+        private const val SQL_INSERT_INTO_AUTOINCREMENT =
+            "INSERT INTO $TABLE_NAME (" +
                     "$NAME_FIELD_NAME ," +
                     "$DATE_FIELD_NAME ," +
                     "$FOREIGN_ID_FIELD_NAME ) " +

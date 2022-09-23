@@ -13,7 +13,7 @@ class DaoSQLite(context: Context): BaseDao {
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
-
+        dao.insertAllLoop(list)
     }
 
     override fun insertAll(list: List<BaseTestDTO>) {

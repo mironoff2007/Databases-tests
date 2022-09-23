@@ -75,7 +75,7 @@ interface TestDao {
     @Query("DELETE FROM $TABLE_NAME")
     fun resetTable()
 
-    @Query("DELETE FROM sqlite_sequence")
+    @Query("DELETE FROM sqlite_sequence WHERE name='$TABLE_NAME'")
     fun resetCounter()
 
     @Query("SELECT COUNT(*) FROM $TABLE_NAME")
