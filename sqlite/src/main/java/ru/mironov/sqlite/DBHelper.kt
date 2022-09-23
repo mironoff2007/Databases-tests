@@ -45,7 +45,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
 
     fun insertAll(list: List<BaseTestDTO>) {
         val db = this.writableDatabase
-        db.execSQL(SQL_INSERT_INTO + getInsertAllString(list))
+        db.execSQL(SQL_INSERT_INTO_AUTOINCREMENT + getInsertAllString(list))
     }
 
     private fun getInsertAllString(list: List<BaseTestDTO>): String {
