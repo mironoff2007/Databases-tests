@@ -80,7 +80,8 @@ interface TestDao {
     @Query("SELECT COUNT(*) FROM $TABLE_NAME")
     fun getRowsCount(): Int
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE id>:idStart AND id<=:idEnd")
-    fun selectBetween(idStart: Int, idEnd: Int): List<TestObject>
+    @Transaction
+    @Query("SELECT * FROM $TABLE_NAME WHERE name>:idStart AND name<=:idEnd")
+    fun selectBetween(idStart: String, idEnd: String): List<TestObject>
 
 }

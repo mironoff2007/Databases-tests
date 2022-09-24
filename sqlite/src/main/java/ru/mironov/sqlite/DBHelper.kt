@@ -169,12 +169,12 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         }
     }
 
-    fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO> {
+    fun selectBetween(idStart: String, idEnd: String): List<BaseTestDTO> {
         val list = mutableListOf<TestObject>()
         return try {
 
             val db = this.readableDatabase
-            val sqlStr = "SELECT * FROM $TABLE_NAME WHERE $ID_FIELD_NAME>$idStart AND $ID_FIELD_NAME<=$idEnd"
+            val sqlStr = "SELECT * FROM $TABLE_NAME WHERE $NAME_FIELD_NAME>'$idStart' AND $NAME_FIELD_NAME<='$idEnd'"
             val cursor = db.rawQuery(sqlStr, null)
             var i = 0
             if (cursor.count > 0) {

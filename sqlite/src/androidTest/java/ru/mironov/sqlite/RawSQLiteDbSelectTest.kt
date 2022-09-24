@@ -9,6 +9,7 @@ import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import ru.mironov.domain.Constants.ADD_MILLION
+import ru.mironov.domain.Constants.EXPECT_BETWEEN_STRING
 import ru.mironov.domain.Constants.SELECT_BETWEEN_END
 import ru.mironov.domain.Constants.SELECT_BETWEEN_START
 import ru.mironov.domain.DbTest
@@ -35,7 +36,7 @@ class RawSQLiteDbSelectTest {
         val idEnd = SELECT_BETWEEN_END
 
         val assertAddedCount = fun(count: Int) {
-            assertEquals(idEnd - idStart, count)
+            assertEquals(EXPECT_BETWEEN_STRING, count)
         }
 
         dbTest.selectBetweenTest(list, assertClear, assertAddedCount, idStart, idEnd)

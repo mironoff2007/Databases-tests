@@ -49,6 +49,6 @@ class DaoRoom(context: Context) : BaseDao {
     }
 
     override fun selectBetween(idStart: Int, idEnd:Int): List<BaseTestDTO> {
-        return dao.selectBetween(idStart, idEnd)
+        return dao.selectBetween("name $idStart", "name $idEnd")
     }
 }
