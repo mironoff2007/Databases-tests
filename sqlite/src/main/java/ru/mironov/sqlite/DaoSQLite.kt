@@ -39,4 +39,8 @@ class DaoSQLite(context: Context): BaseDao {
     override fun getRowsCount(): Int {
        return dao.getRowsCount()
     }
+
+    override fun selectBetween(idStart: Int, idEnd:Int): List<BaseTestDTO> {
+        return dao.selectBetween(idStart, idEnd)
+    }
 }

@@ -1,4 +1,4 @@
-package ru.mironov.roomdb
+package ru.mironov.sqlite
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -8,19 +8,19 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
+import ru.mironov.domain.Constants
 import ru.mironov.domain.Constants.ADD_COUNT
-import ru.mironov.domain.Constants.ADD_MILLION
 import ru.mironov.domain.DbTest
 
 @RunWith(AndroidJUnit4::class)
-class RoomDbTest {
+class RawSQLiteDbInsertTest {
 
     @get:Rule
     var name: TestName = TestName()
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
+    private val dbTest = DbTest(DaoSQLite(appContext), this.javaClass.name)
 
     @Test
     fun insertBySingleEmptyDBnoConfTest() {
@@ -54,22 +54,7 @@ class RoomDbTest {
     }
 
     @Test
-    fun insertAllRawQueryEmptyDBnoConfTest() {
-        val list = TestObject.createMockList(ADD_COUNT)
-
-        val assertClear = fun(count: Int) {
-            assertEquals(count, 0)
-        }
-
-        val assertAddedCount = fun(count: Int) {
-            assertEquals(count, ADD_COUNT)
-        }
-
-        dbTest.insertAllRawEmptyDBnoConfTest(list, assertClear, assertAddedCount)
-    }
-
-    @Test
-    fun insertAllTransactionDBnoConfTest() {
+    fun insertAllTransactionConfTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {
@@ -85,14 +70,14 @@ class RoomDbTest {
 
     @Test
     fun insertMillionTest() {
-        val list = TestObject.createMockList(ADD_MILLION)
+        val list = TestObject.createMockList(Constants.ADD_MILLION)
 
         val assertClear = fun(count: Int) {
             assertEquals(count, 0)
         }
 
         val assertAddedCount = fun(count: Int) {
-            assertEquals(count, ADD_MILLION)
+            assertEquals(Constants.ADD_MILLION, count)
         }
 
         dbTest.insertMillionTest(list, assertClear, assertAddedCount)

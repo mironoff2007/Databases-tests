@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import ru.mironov.domain.BaseTestDTO
 import ru.mironov.domain.BaseTestDTO.Companion.DATE_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.FOREIGN_ID_FIELD_NAME
-import ru.mironov.domain.BaseTestDTO.Companion.NAME_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.ID_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO.Companion.NAME_FIELD_NAME
 import ru.mironov.domain.Constants
 import ru.mironov.sqlite.TestObject.Companion.DB_NAME
 import ru.mironov.sqlite.TestObject.Companion.TABLE_NAME
@@ -169,6 +169,41 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
         }
     }
 
+    fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO> {
+        val list = mutableListOf<TestObject>()
+        return try {
+
+            val db = this.readableDatabase
+            val sqlStr = "SELECT * FROM $TABLE_NAME WHERE $ID_FIELD_NAME>$idStart AND $ID_FIELD_NAME<=$idEnd"
+            val cursor = db.rawQuery(sqlStr, null)
+            var i = 0
+            if (cursor.count > 0) {
+                while (cursor.count != i) {
+
+                    cursor.moveToFirst()
+                    val id = cursor.getLong(ID_FIELD_NAME) ?: 0L
+                    val name = cursor.getString(NAME_FIELD_NAME) ?: ""
+                    val date = cursor.getString(DATE_FIELD_NAME) ?: ""
+                    val foreignId = cursor.getInt(DATE_FIELD_NAME) ?: 0
+
+                    val obj = TestObject(
+                        id = id,
+                        name = name,
+                        date = date,
+                        foreignId = foreignId
+                    )
+
+                    list.add(obj)
+                    i++
+                }
+            }
+            cursor.close()
+            list
+        } catch (e: Exception) {
+            list
+        }
+    }
+
     private fun drop() {
         val db = this.writableDatabase
         db.execSQL(SQL_DELETE_ENTRIES)
@@ -192,6 +227,8 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
             cursor.getInt("COUNT(*)") ?: 0
         } else 0
     }
+
+
 
     companion object {
         // If you change the database schema, you must increment the database version.

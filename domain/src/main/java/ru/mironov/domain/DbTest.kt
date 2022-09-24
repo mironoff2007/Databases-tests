@@ -117,6 +117,32 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     }
 
+    fun selectBetweenTest(
+        list: List<BaseTestDTO>,
+        assertPopulated: (Int) -> Unit,
+        assertAddedCount: (Int) -> Unit,
+        idStart: Int,
+        idEnd: Int
+    ) {
+        var count = dao.getRowsCount()
+        if (count != Constants.ADD_MILLION) {
+            dao.resetTable()
+            dao.insertLoop(list)
+        }
+        count = dao.getRowsCount()
+
+        assertPopulated.invoke(count)
+
+        counter.start()
+        val result = dao.selectBetween(idStart,idEnd)
+        counter.end()
+
+        assertAddedCount.invoke(result.size)
+
+        Log.d(TAG, "$testName.selectBetween time;" + counter.calcTimeMillis())
+
+    }
+
     companion object {
         const val TAG = "Test_tag"
     }

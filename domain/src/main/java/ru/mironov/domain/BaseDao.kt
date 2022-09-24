@@ -17,4 +17,6 @@ interface BaseDao {
     fun resetTable()
 
     fun getRowsCount(): Int
+
+    fun selectBetween(idStart: Int, idEnd:Int): List<BaseTestDTO>
 }
