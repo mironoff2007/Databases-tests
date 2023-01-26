@@ -54,7 +54,9 @@ dependencies {
 }
 
 sqldelight {
-    database("AppDatabase") {
-
+    databases {
+        database("AppDatabase") {
+            packageName = "ru.mironov.sqldelight"
+        }
     }
 }
