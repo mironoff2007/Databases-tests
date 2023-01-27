@@ -25,7 +25,7 @@ class SqlDelightInsertTest {
     private val dbTest = DbTest(dao = dbSqlite, testName = this.javaClass.name)
 
     @After
-    private fun after(){
+    fun after(){
         dbTest.clear()
     }
 

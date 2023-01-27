@@ -26,7 +26,7 @@ class RawSQLiteDbSelectTest {
     private val dbTest = DbTest(DaoSQLite(appContext), this.javaClass.name)
 
     @After
-    private fun after(){
+    fun after(){
         dbTest.clear()
     }
 

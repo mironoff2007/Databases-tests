@@ -26,7 +26,7 @@ class RoomDbSelectTest {
     private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
 
     @After
-    private fun after(){
+    fun after(){
         dbTest.clear()
     }
 
