@@ -10,6 +10,7 @@ import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import ru.mironov.domain.Constants.ADD_COUNT
 import ru.mironov.domain.Constants.ADD_MILLION
+import ru.mironov.domain.DbTest
 
 @RunWith(AndroidJUnit4::class)
 class SqlDelightInsertTest {
@@ -18,23 +19,23 @@ class SqlDelightInsertTest {
     var name: TestName = TestName()
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
-
-    private val dbTest = DatabaseDriverFactory(appContext).createDriver()
+    private val factory = DatabaseDriverFactory(appContext)
+    private val dbSqlite = DaoSqlite(factory.getDataSource())
+    private val dbTest = DbTest(dao = dbSqlite, testName = this.javaClass.name)
 
     @Test
     fun insertBySingleEmptyDBnoConfTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {
-            assertEquals(count, 0)
+            assertEquals(0, count)
         }
 
         val assertAddedCount = fun(count: Int) {
-            assertEquals(count, ADD_COUNT)
+            assertEquals(ADD_COUNT, count)
         }
 
-        //dbTest.insertBySingleEmptyDBnoConfTest(list, assertClear, assertAddedCount)
-
+        dbTest.insertBySingleEmptyDBnoConfTest(list, assertClear, assertAddedCount)
     }
 
     @Test

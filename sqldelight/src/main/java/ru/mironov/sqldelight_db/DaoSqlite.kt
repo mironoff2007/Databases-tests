@@ -1,17 +1,18 @@
 package ru.mironov.sqldelight_db
 
-
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
+import sqldelightdb.persondb.TestObjectEntity
 
-class TestObjectDataSourceImpl(
+class DaoSqlite(
     db: TestObjectsDb
 ): BaseDao {
 
     private val queries = db.testObjectEntityQueries
 
     override fun insert(obj: BaseTestDTO) {
-        TODO("Not yet implemented")
+        val testObj = obj as TestObject
+        queries.insertTestObject(id = obj.id, name = obj.name, date = testObj.date, foreignId = testObj.foreignId.toLong())
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
@@ -31,20 +32,29 @@ class TestObjectDataSourceImpl(
     }
 
     override fun getAll(): List<BaseTestDTO> {
-        TODO("Not yet implemented")
+        return queries.getAllTestObject().executeAsList().map { it.toBaseObject() }
     }
 
     override fun resetTable() {
-        TODO("Not yet implemented")
+        queries.drop()
     }
 
     override fun getRowsCount(): Int {
-        TODO("Not yet implemented")
+        return queries.count().executeAsOne().toInt()
     }
 
     override fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO> {
         TODO("Not yet implemented")
     }
 
+    fun TestObjectEntity.toBaseObject(): BaseTestDTO {
+        val obj = TestObject(
+            date = this.date,
+            name = this. name,
+            foreignId = this.foreignId.toInt()
+        )
+        obj.id = this.id
+        return obj
+    }
 
 }

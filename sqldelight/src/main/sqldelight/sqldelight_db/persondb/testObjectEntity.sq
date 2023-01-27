@@ -1,5 +1,5 @@
 CREATE TABLE testObjectEntity (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     date TEXT NOT NULL,
     name TEXT NOT NULL,
     foreignId INTEGER NOT NULL
@@ -15,7 +15,7 @@ SELECT *
 FROM testObjectEntity;
 
 insertTestObject:
-INSERT OR REPLACE
+INSERT
 INTO testObjectEntity
 VALUES(?, ?, ? , ?);
 
@@ -25,3 +25,6 @@ WHERE id = :id;
 
 drop:
 DELETE FROM testObjectEntity;
+
+count:
+SELECT COUNT (*) FROM testObjectEntity;
