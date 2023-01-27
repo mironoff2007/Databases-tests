@@ -19,6 +19,11 @@ INSERT
 INTO testObjectEntity
 VALUES(?, ?, ? , ?);
 
+insertAll:
+INSERT
+INTO testObjectEntity
+VALUES query = :query;
+
 deleteTestObjectById:
 DELETE FROM testObjectEntity
 WHERE id = :id;

@@ -20,7 +20,7 @@ class SqlDelightInsertTest {
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
     private val factory = DatabaseDriverFactory(appContext)
-    private val dbSqlite = DaoSqlite(factory.getDataSource())
+    private val dbSqlite = DaoSqlDelight(factory.getDataSource(), factory.createDriver())
     private val dbTest = DbTest(dao = dbSqlite, testName = this.javaClass.name)
 
     @Test
