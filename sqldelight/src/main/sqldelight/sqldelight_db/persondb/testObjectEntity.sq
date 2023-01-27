@@ -1,0 +1,27 @@
+CREATE TABLE testObjectEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    date TEXT NOT NULL,
+    name TEXT NOT NULL,
+    foreignId INTEGER NOT NULL
+);
+
+getTestObjectById:
+SELECT *
+FROM testObjectEntity
+WHERE id = :id;
+
+getAllTestObject:
+SELECT *
+FROM testObjectEntity;
+
+insertTestObject:
+INSERT OR REPLACE
+INTO testObjectEntity
+VALUES(?, ?, ? , ?);
+
+deleteTestObjectById:
+DELETE FROM testObjectEntity
+WHERE id = :id;
+
+drop:
+DELETE FROM testObjectEntity;

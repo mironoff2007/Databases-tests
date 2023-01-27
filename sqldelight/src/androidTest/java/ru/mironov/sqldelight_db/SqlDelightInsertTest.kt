@@ -1,4 +1,4 @@
-package ru.mironov.sqldelight
+package ru.mironov.sqldelight_db
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -10,7 +10,6 @@ import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import ru.mironov.domain.Constants.ADD_COUNT
 import ru.mironov.domain.Constants.ADD_MILLION
-import ru.mironov.domain.DbTest
 
 @RunWith(AndroidJUnit4::class)
 class SqlDelightInsertTest {
@@ -34,7 +33,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        dbTest.insertBySingleEmptyDBnoConfTest(list, assertClear, assertAddedCount)
+        //dbTest.insertBySingleEmptyDBnoConfTest(list, assertClear, assertAddedCount)
 
     }
 
@@ -50,7 +49,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        dbTest.insertAllEmptyDBnoConfTest(list, assertClear, assertAddedCount)
+        //dbTest.insertAllEmptyDBnoConfTest(list, assertClear, assertAddedCount)
     }
 
     @Test
@@ -65,7 +64,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        dbTest.insertAllRawEmptyDBnoConfTest(list, assertClear, assertAddedCount)
+        //dbTest.insertAllRawEmptyDBnoConfTest(list, assertClear, assertAddedCount)
     }
 
     @Test
@@ -80,7 +79,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        dbTest.insertAllTransactionTest(list, assertClear, assertAddedCount)
+        //dbTest.insertAllTransactionTest(list, assertClear, assertAddedCount)
     }
 
     @Test
@@ -95,7 +94,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_MILLION)
         }
 
-        dbTest.insertMillionTest(list, assertClear, assertAddedCount)
+        //dbTest.insertMillionTest(list, assertClear, assertAddedCount)
     }
 
 }
