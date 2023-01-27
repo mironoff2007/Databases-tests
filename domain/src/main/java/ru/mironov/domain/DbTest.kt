@@ -113,7 +113,7 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
         count = dao.getRowsCount()
         assertAddedCount.invoke(count)
 
-        Log.d(TAG, "$testName.insertLoop time;" + counter.calcTimeMillis())
+        Log.d(TAG, "$testName.insertMillion time;" + counter.calcTimeMillis())
 
     }
 
