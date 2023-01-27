@@ -50,26 +50,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
     fun insertAllWithTransaction(list: List<BaseTestDTO>) {
         val db = this.writableDatabase
         db.beginTransaction()
-        val stringBuilder = StringBuilder()
-        list.forEach { obj ->
-            stringBuilder.apply {
-                append(" (")
-                append((obj as TestObject).id.toString())
-                append(", ")
-                append("'")
-                append(obj.name)
-                append("'")
-                append(", ")
-                append("'")
-                append(obj.date)
-                append("'")
-                append(", ")
-                append(obj.foreignId)
-                append("),")
-            }
-        }
-        stringBuilder.deleteCharAt(stringBuilder.lastIndex)
-        db.execSQL(SQL_INSERT_INTO + stringBuilder.toString())
+        list.forEach { add(it) }
         db.setTransactionSuccessful()
         db.endTransaction()
     }

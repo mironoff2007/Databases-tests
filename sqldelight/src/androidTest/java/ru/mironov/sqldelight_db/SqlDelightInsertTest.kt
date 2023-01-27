@@ -75,7 +75,7 @@ class SqlDelightInsertTest {
     }
 
     @Test
-    fun insertAllTransactionDBnoConfTest() {
+    fun insertAllSingleInTransactionDBnoConfTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {
@@ -86,7 +86,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        dbTest.insertAllTransactionTest(list, assertClear, assertAddedCount)
+        dbTest.insertAllSingleInTransactionTest(list, assertClear, assertAddedCount)
     }
 
     @Test

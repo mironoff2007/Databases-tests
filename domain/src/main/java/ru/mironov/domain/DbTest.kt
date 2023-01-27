@@ -77,7 +77,7 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     }
 
-    fun insertAllTransactionTest(
+    fun insertAllSingleInTransactionTest(
         list: List<BaseTestDTO>,
         assertClear: (Int) -> Unit,
         assertAddedCount: (Int) -> Unit
@@ -88,14 +88,14 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
         counter.start()
 
-        dao.insertAllTransaction(list)
+        dao.insertAllSingleInTransaction(list)
 
         counter.end()
 
         count = dao.getRowsCount()
         assertAddedCount.invoke(count)
 
-        Log.d(TAG, "$testName.insertTestTransaction time;" + counter.calcTimeMillis())
+        Log.d(TAG, "$testName.insertTestAllBySingleInTransaction time;" + counter.calcTimeMillis())
 
     }
 

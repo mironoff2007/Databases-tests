@@ -12,14 +12,16 @@ import ru.mironov.roomdb.TestObject.Companion.TABLE_NAME
 interface TestDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(videoHistory: TestObject)
+    fun insert(testObject: TestObject)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg obj: TestObject)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllTransaction(vararg obj: TestObject)
+    fun insertAllTransaction(list: List<BaseTestDTO>) {
+        list.forEach { insert(it as TestObject) }
+    }
 
     @RawQuery
     fun insertAllBatch(query: SupportSQLiteQuery): Boolean

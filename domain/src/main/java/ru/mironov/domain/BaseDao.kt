@@ -10,7 +10,7 @@ interface BaseDao {
 
     fun insertAllRawQuery(list: List<BaseTestDTO>)
 
-    fun insertAllTransaction(list: List<BaseTestDTO>)
+    fun insertAllSingleInTransaction(list: List<BaseTestDTO>)
 
     fun getAll(): List<BaseTestDTO>
 

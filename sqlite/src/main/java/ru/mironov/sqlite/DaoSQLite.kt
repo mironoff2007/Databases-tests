@@ -24,7 +24,7 @@ class DaoSQLite(context: Context): BaseDao {
         dao.insertAll(list)
     }
 
-    override fun insertAllTransaction(list: List<BaseTestDTO>) {
+    override fun insertAllSingleInTransaction(list: List<BaseTestDTO>) {
         dao.insertAllWithTransaction(list)
     }
 

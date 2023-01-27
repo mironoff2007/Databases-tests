@@ -43,9 +43,9 @@ class DaoSqlDelight(
         insertAll(list)
     }
 
-    override fun insertAllTransaction(list: List<BaseTestDTO>) {
+    override fun insertAllSingleInTransaction(list: List<BaseTestDTO>) {
         db.transaction {
-            insertAll(list)
+            list.forEach { insert(it) }
         }
     }
 
