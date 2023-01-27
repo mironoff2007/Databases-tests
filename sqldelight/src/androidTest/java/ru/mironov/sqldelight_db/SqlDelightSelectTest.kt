@@ -3,6 +3,7 @@ package ru.mironov.sqldelight_db
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -25,6 +26,11 @@ class SqlDelightSelectTest {
     private val factory = DatabaseDriverFactory(appContext)
     private val dbSqlite = DaoSqlDelight(factory.getDataSource(), factory.createDriver())
     private val dbTest = DbTest(dao = dbSqlite, testName = this.javaClass.name)
+
+    @After
+    private fun after(){
+        dbTest.clear()
+    }
 
     @Test
     fun selectBetweenTest() {

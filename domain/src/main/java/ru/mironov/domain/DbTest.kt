@@ -6,6 +6,10 @@ class DbTest(private val dao: BaseDao, private val testName: String) {
 
     private val counter = TimeCounter()
 
+    fun clear() {
+        dao.resetTable()
+    }
+
     fun insertBySingleEmptyDBnoConfTest(
         list: List<BaseTestDTO>,
         assertClear: (Int) -> Unit,
