@@ -19,10 +19,8 @@ INSERT
 INTO testObjectEntity
 VALUES(?, ?, ? , ?);
 
-insertAll:
-INSERT
-INTO testObjectEntity
-VALUES query = :query;
+selectBetween:
+SELECT * FROM testObjectEntity WHERE name>:idStart AND name<=:idEnd;
 
 deleteTestObjectById:
 DELETE FROM testObjectEntity

@@ -50,7 +50,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        //dbTest.insertAllEmptyDBnoConfTest(list, assertClear, assertAddedCount)
+        dbTest.insertAllEmptyDBnoConfTest(list, assertClear, assertAddedCount)
     }
 
     @Test
@@ -65,7 +65,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        //dbTest.insertAllRawEmptyDBnoConfTest(list, assertClear, assertAddedCount)
+        dbTest.insertAllRawEmptyDBnoConfTest(list, assertClear, assertAddedCount)
     }
 
     @Test
@@ -80,7 +80,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_COUNT)
         }
 
-        //dbTest.insertAllTransactionTest(list, assertClear, assertAddedCount)
+        dbTest.insertAllTransactionTest(list, assertClear, assertAddedCount)
     }
 
     @Test
@@ -95,7 +95,7 @@ class SqlDelightInsertTest {
             assertEquals(count, ADD_MILLION)
         }
 
-        //dbTest.insertMillionTest(list, assertClear, assertAddedCount)
+        dbTest.insertMillionTest(list, assertClear, assertAddedCount)
     }
 
 }
