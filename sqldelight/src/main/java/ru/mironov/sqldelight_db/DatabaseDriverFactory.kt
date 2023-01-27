@@ -12,7 +12,7 @@ class DatabaseDriverFactory(private val context: Context) {
             driver = AndroidSqliteDriver(
                 schema = TestObjectsDb.Schema,
                 context = context,
-                name = "person.db"
+                name = "testObject.db"
             )
         }
         return driver!!

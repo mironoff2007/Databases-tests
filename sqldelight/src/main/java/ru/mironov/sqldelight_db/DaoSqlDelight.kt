@@ -62,7 +62,7 @@ class DaoSqlDelight(
     }
 
     override fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO> {
-        return queries.selectBetween(idStart = idStart.toString(), idEnd = idEnd.toString()).executeAsList().map { it.toBaseObject() }
+        return queries.selectBetween(idStart = "name $idStart", idEnd = "name $idEnd").executeAsList().map { it.toBaseObject() }
     }
 
     fun TestObjectEntity.toBaseObject(): BaseTestDTO {
