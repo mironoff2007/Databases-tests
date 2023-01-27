@@ -32,7 +32,11 @@ interface TestDao {
             var endPos = startPos + Constants.ADD_COUNT
             if (endPos > list.size - 1) endPos = list.size
             val subList = list.subList(startPos, endPos)
-            if (subList.isNotEmpty()) insertAllBatch(insertQuery(subList))
+            if (subList.isNotEmpty()) {
+                val castedList = subList as List<TestObject>
+                val typedArr = castedList.toTypedArray()
+                insertAll(*typedArr)
+            }
         }
     }
 

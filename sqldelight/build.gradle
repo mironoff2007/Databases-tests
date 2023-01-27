@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace 'ru.mironov.sqldelight'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -42,10 +42,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    def sqldelight_version = "1.5.4"
+    /*def sqldelight_version = "1.5.2"
     implementation "com.squareup.sqldelight:gradle-plugin:$sqldelight_version"
     implementation "com.squareup.sqldelight:runtime:$sqldelight_version"
-    implementation "com.squareup.sqldelight:android-driver:$sqldelight_version"
+    implementation "com.squareup.sqldelight:android-driver:$sqldelight_version"*/
+
+    // SQL Delight
+    implementation "com.squareup.sqldelight:android-driver:1.5.2"
+    implementation "com.squareup.sqldelight:coroutines-extensions-jvm:1.5.2"
 
     def exposed_version="0.37.3"
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
@@ -54,7 +58,8 @@ dependencies {
 }
 
 sqldelight {
-    database("AppDatabase") {
-
+    TestObjectsDb {
+        packageName = "ru.mironov.sqldelight_db"
     }
 }
+

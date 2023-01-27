@@ -1,4 +1,4 @@
-package ru.mironov.roomdb
+package ru.mironov.sqldelight_db
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -16,14 +16,16 @@ import ru.mironov.domain.Constants.SELECT_BETWEEN_START
 import ru.mironov.domain.DbTest
 
 @RunWith(AndroidJUnit4::class)
-class RoomDbSelectTest {
+class SqlDelightSelectTest {
 
     @get:Rule
     var name: TestName = TestName()
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
+    private val factory = DatabaseDriverFactory(appContext)
+    private val dbSqlite = DaoSqlDelight(factory.getDataSource(), factory.createDriver())
+    private val dbTest = DbTest(dao = dbSqlite, testName = this.javaClass.name)
 
     @After
     fun after(){

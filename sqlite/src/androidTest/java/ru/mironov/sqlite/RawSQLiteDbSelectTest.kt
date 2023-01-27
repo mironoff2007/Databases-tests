@@ -3,6 +3,7 @@ package ru.mironov.sqlite
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -23,6 +24,11 @@ class RawSQLiteDbSelectTest {
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
     private val dbTest = DbTest(DaoSQLite(appContext), this.javaClass.name)
+
+    @After
+    fun after(){
+        dbTest.clear()
+    }
 
     @Test
     fun selectBetweenTest() {

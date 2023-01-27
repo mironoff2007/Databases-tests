@@ -3,6 +3,7 @@ package ru.mironov.roomdb
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +22,11 @@ class RoomDbInsertTest {
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
     private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
+
+    @After
+    fun after(){
+        dbTest.clear()
+    }
 
     @Test
     fun insertBySingleEmptyDBnoConfTest() {

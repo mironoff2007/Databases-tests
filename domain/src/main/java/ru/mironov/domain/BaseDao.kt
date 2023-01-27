@@ -19,4 +19,29 @@ interface BaseDao {
     fun getRowsCount(): Int
 
     fun selectBetween(idStart: Int, idEnd:Int): List<BaseTestDTO>
+
+
+    companion object {
+        fun getInsertAllString(list: List<BaseTestDTO>): String {
+            val stringBuilder = StringBuilder()
+            list.forEach { obj ->
+                stringBuilder.apply {
+                    append(" (")
+                    append("'")
+                    append(obj.name)
+                    append("'")
+                    append(", ")
+                    append("'")
+                    append(obj.date)
+                    append("'")
+                    append(", ")
+                    append(obj.foreignId)
+                    append("),")
+                }
+            }
+            stringBuilder.deleteCharAt(stringBuilder.lastIndex)
+            return stringBuilder.toString()
+        }
+    }
+
 }

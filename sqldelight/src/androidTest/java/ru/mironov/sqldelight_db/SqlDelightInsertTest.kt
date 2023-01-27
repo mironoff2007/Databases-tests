@@ -1,8 +1,9 @@
-package ru.mironov.sqldelight
+package ru.mironov.sqldelight_db
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -19,23 +20,28 @@ class SqlDelightInsertTest {
     var name: TestName = TestName()
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val factory = DatabaseDriverFactory(appContext)
+    private val dbSqlite = DaoSqlDelight(factory.getDataSource(), factory.createDriver())
+    private val dbTest = DbTest(dao = dbSqlite, testName = this.javaClass.name)
 
-    private val dbTest = DatabaseDriverFactory(appContext).createDriver()
+    @After
+    fun after(){
+        dbTest.clear()
+    }
 
     @Test
     fun insertBySingleEmptyDBnoConfTest() {
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {
-            assertEquals(count, 0)
+            assertEquals(0, count)
         }
 
         val assertAddedCount = fun(count: Int) {
-            assertEquals(count, ADD_COUNT)
+            assertEquals(ADD_COUNT, count)
         }
 
         dbTest.insertBySingleEmptyDBnoConfTest(list, assertClear, assertAddedCount)
-
     }
 
     @Test

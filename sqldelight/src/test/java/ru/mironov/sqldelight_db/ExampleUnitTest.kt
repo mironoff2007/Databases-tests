@@ -1,4 +1,4 @@
-package ru.mironov.sqldelight
+package ru.mironov.sqldelight_db
 
 import org.junit.Test
 

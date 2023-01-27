@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import ru.mironov.domain.BaseDao.Companion.getInsertAllString
 import ru.mironov.domain.BaseTestDTO
 import ru.mironov.domain.BaseTestDTO.Companion.DATE_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.FOREIGN_ID_FIELD_NAME
@@ -44,27 +45,6 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
     fun insertAll(list: List<BaseTestDTO>) {
         val db = this.writableDatabase
         db.execSQL(SQL_INSERT_INTO_AUTOINCREMENT + getInsertAllString(list))
-    }
-
-    private fun getInsertAllString(list: List<BaseTestDTO>): String {
-        val stringBuilder = StringBuilder()
-        list.forEach { obj ->
-            stringBuilder.apply {
-                append(" (")
-                append("'")
-                append(obj.name)
-                append("'")
-                append(", ")
-                append("'")
-                append(obj.date)
-                append("'")
-                append(", ")
-                append(obj.foreignId)
-                append("),")
-            }
-        }
-        stringBuilder.deleteCharAt(stringBuilder.lastIndex)
-        return stringBuilder.toString()
     }
 
     fun insertAllWithTransaction(list: List<BaseTestDTO>) {

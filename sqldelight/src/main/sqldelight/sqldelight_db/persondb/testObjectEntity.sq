@@ -1,0 +1,33 @@
+CREATE TABLE testObjectEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    date TEXT NOT NULL,
+    name TEXT NOT NULL,
+    foreignId INTEGER NOT NULL
+);
+
+getTestObjectById:
+SELECT *
+FROM testObjectEntity
+WHERE id = :id;
+
+getAllTestObject:
+SELECT *
+FROM testObjectEntity;
+
+insertTestObject:
+INSERT
+INTO testObjectEntity
+VALUES(?, ?, ? , ?);
+
+selectBetween:
+SELECT * FROM testObjectEntity WHERE name>:idStart AND name<=:idEnd;
+
+deleteTestObjectById:
+DELETE FROM testObjectEntity
+WHERE id = :id;
+
+drop:
+DELETE FROM testObjectEntity;
+
+count:
+SELECT COUNT (*) FROM testObjectEntity;
