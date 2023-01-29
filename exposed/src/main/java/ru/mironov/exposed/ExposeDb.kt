@@ -2,6 +2,7 @@ package ru.mironov.exposed
 
 import android.content.Context
 import ru.mironov.domain.BaseDao
+import ru.mironov.domain.BaseDao.Companion.SQL_INSERT_INTO
 import ru.mironov.domain.BaseTestDTO
 
 class ExposeDb(context: Context): BaseDao {
@@ -16,10 +17,14 @@ class ExposeDb(context: Context): BaseDao {
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
-        val insert = fun (subList: List<BaseTestDTO>) {
-            insertAll(subList)
+        /*val method = fun()  {
+            val insert = fun (subList: List<BaseTestDTO>) {
+                insertAll(subList)
+            }
+            BaseDao.insertLoop(list, insert)
         }
-        BaseDao.insertLoop(list, insert)
+        TestObjectTable.inTransaction(method)*/
+        TestObjectTable.insertAllBatch(list)
     }
 
     override fun insertAll(list: List<BaseTestDTO>) {
@@ -27,7 +32,8 @@ class ExposeDb(context: Context): BaseDao {
     }
 
     override fun insertAllRawQuery(list: List<BaseTestDTO>) {
-        TODO("Not yet implemented")
+        val query = SQL_INSERT_INTO+ BaseDao.getInsertAllString(list)
+        TestObjectTable.rawQuery(query)
     }
 
     override fun insertAllSingleInTransaction(list: List<BaseTestDTO>) {

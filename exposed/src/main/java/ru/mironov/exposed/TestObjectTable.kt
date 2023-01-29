@@ -1,10 +1,12 @@
 package ru.mironov.exposed
 
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import ru.mironov.domain.BaseDao.Companion.TEST_OBJECT_TABLE
 import ru.mironov.domain.BaseTestDTO
 
-object TestObjectTable : Table() {
+object TestObjectTable : Table(TEST_OBJECT_TABLE) {
 
     private val name = TestObjectTable.varchar(name = "name", length = 150)
     private val date = TestObjectTable.varchar(name = "date", length = 50)
@@ -16,6 +18,18 @@ object TestObjectTable : Table() {
         }
     }
 
+    fun rawQuery(query: String){
+        transaction {
+            /*val conn = TransactionManager.current().connection
+            val statement = conn.prepareStatement(query, false)
+            statement.executeUpdate()
+            statement.closeIfPossible()*/
+            exec(query) { rs ->
+
+            }
+        }
+    }
+
     fun insert(obj: BaseTestDTO) {
         transaction {
             TestObjectTable.insert {
@@ -23,6 +37,20 @@ object TestObjectTable : Table() {
                 it[date] = obj.date
                 it[foreignId] = obj.foreignId
             }
+        }
+    }
+
+    fun inTransaction(method: () -> Unit) {
+        transaction {
+            method.invoke()
+        }
+    }
+
+    fun insertAllBatchWoTransaction(testObjects: List<BaseTestDTO>) {
+        TestObjectTable.batchInsert(testObjects) {
+            this[name] = it.name
+            this[date] = it.date
+            this[foreignId] = it.foreignId
         }
     }
 

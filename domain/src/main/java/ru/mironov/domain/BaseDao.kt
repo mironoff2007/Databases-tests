@@ -22,6 +22,16 @@ interface BaseDao {
 
 
     companion object {
+
+        const val TEST_OBJECT_TABLE = "testObjectEntity"
+
+        const val SQL_INSERT_INTO =
+            "INSERT INTO $TEST_OBJECT_TABLE (" +
+                    "${BaseTestDTO.NAME_FIELD_NAME} ," +
+                    "${BaseTestDTO.DATE_FIELD_NAME} ," +
+                    "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +
+                    "VALUES"
+
         fun getInsertAllString(list: List<BaseTestDTO>): String {
             val stringBuilder = StringBuilder()
             list.forEach { obj ->
