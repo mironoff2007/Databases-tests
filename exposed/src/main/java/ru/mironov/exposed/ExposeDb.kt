@@ -1,15 +1,9 @@
 package ru.mironov.exposed
 
-import android.content.Context
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
 
-class ExposeDb(private  val appContext: Context): BaseDao {
-
-    init {
-       appContext.initDatabase()
-    }
-
+class ExposeDb: BaseDao {
     override fun insert(obj: BaseTestDTO) {
         TestObjectTable.insert(obj)
     }
