@@ -17,10 +17,12 @@ object TestObjectTable : Table() {
     }
 
     fun insert(obj: BaseTestDTO) {
-        TestObjectTable.insert {
-            it[name] = obj.name
-            it[date] = obj.date
-            it[foreignId] = obj.foreignId
+        transaction {
+            TestObjectTable.insert {
+                it[name] = obj.name
+                it[date] = obj.date
+                it[foreignId] = obj.foreignId
+            }
         }
     }
 
