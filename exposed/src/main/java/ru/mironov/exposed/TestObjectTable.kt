@@ -10,6 +10,12 @@ object TestObjectTable : Table() {
     private val date = TestObjectTable.varchar(name = "date", length = 50)
     private var foreignId = TestObjectTable.integer(name = "foreignId")
 
+    fun initDb(database: Database) {
+        transaction(database) {
+            SchemaUtils.createMissingTablesAndColumns(this@TestObjectTable)
+        }
+    }
+
     fun insert(obj: BaseTestDTO) {
         TestObjectTable.insert {
             it[name] = obj.name

@@ -7,7 +7,8 @@ import ru.mironov.domain.BaseTestDTO
 class ExposeDb(private  val context: Context): BaseDao {
 
     init {
-        context.initDatabase()
+        val db = context.initDatabase()
+        TestObjectTable.initDb(db)
     }
 
     override fun insert(obj: BaseTestDTO) {
