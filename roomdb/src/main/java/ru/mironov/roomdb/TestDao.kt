@@ -20,7 +20,7 @@ interface TestDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllTransaction(list: List<BaseTestDTO>) {
-        list.forEach { insert(it as TestObject) }
+        list.forEach { insertAllBatch(insertQuery(listOf(it))) }
     }
 
     @RawQuery

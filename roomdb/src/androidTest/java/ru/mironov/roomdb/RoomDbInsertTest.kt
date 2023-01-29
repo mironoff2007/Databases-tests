@@ -3,6 +3,7 @@ package ru.mironov.roomdb
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -75,7 +76,7 @@ class RoomDbInsertTest {
     }
 
     @Test
-    fun insertAllSingleInTransactionDBnoConfTest() {
+    fun insertAllSingleInTransactionDBnoConfTest() = runBlocking{
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {
