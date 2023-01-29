@@ -3,7 +3,6 @@ package ru.mironov.sqldelight_db
 import com.squareup.sqldelight.db.SqlDriver
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
-import ru.mironov.domain.Constants
 import sqldelightdb.persondb.TestObjectEntity
 
 class DaoSqlDelight(
@@ -20,17 +19,8 @@ class DaoSqlDelight(
 
     override fun insertLoop(list: List<BaseTestDTO>) {
         db.transaction {
-            val repeatCount = list.size / Constants.ADD_COUNT + 1
-            repeat(repeatCount) {
-                val startPos = it * Constants.ADD_COUNT
-                var endPos = startPos + Constants.ADD_COUNT
-                if (endPos > list.size - 1) endPos = list.size
-                val subList = list.subList(startPos, endPos)
-
-                if (subList.isNotEmpty()) {
-                    insertAll(subList)
-                }
-            }
+            val insert = fun (subList: List<BaseTestDTO>) { insertAll(subList) }
+            BaseDao.insertLoop(list, insert)
         }
     }
 

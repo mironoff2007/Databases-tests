@@ -4,7 +4,7 @@ import android.content.Context
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
 
-class ExposeDb(private  val context: Context): BaseDao {
+class ExposeDb(context: Context): BaseDao {
 
     init {
         val db = context.initDatabase()
@@ -16,7 +16,10 @@ class ExposeDb(private  val context: Context): BaseDao {
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
-        TODO("Not yet implemented")
+        val insert = fun (subList: List<BaseTestDTO>) {
+            insertAll(subList)
+        }
+        BaseDao.insertLoop(list, insert)
     }
 
     override fun insertAll(list: List<BaseTestDTO>) {

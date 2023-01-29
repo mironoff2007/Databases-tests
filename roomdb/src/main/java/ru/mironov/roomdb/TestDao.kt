@@ -3,9 +3,9 @@ package ru.mironov.roomdb
 import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
+import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
 import ru.mironov.domain.BaseTestDTO.Companion.ID_FIELD_NAME
-import ru.mironov.domain.Constants
 import ru.mironov.roomdb.TestObject.Companion.TABLE_NAME
 
 @Dao
@@ -28,16 +28,10 @@ interface TestDao {
 
     @Transaction
     fun inInsertLoop(list: List<BaseTestDTO>) {
-        val repeatCount = list.size / Constants.ADD_COUNT + 1
-        repeat(repeatCount) {
-            val startPos = it * Constants.ADD_COUNT
-            var endPos = startPos + Constants.ADD_COUNT
-            if (endPos > list.size - 1) endPos = list.size
-            val subList = list.subList(startPos, endPos)
-            if (subList.isNotEmpty()) {
-                insertAllBatch(insertQuery(subList))
-            }
+        val insert = fun (subList: List<BaseTestDTO>) {
+            insertAllBatch(insertQuery(subList))
         }
+        BaseDao.insertLoop(list, insert)
     }
 
     fun insertQuery(list: List<BaseTestDTO>): SimpleSQLiteQuery {

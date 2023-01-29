@@ -42,6 +42,20 @@ interface BaseDao {
             stringBuilder.deleteCharAt(stringBuilder.lastIndex)
             return stringBuilder.toString()
         }
+
+        fun insertLoop(list: List<BaseTestDTO>, insert: (List<BaseTestDTO>) -> Unit) {
+            val repeatCount = list.size / Constants.ADD_COUNT + 1
+            repeat(repeatCount) {
+                val startPos = it * Constants.ADD_COUNT
+                var endPos = startPos + Constants.ADD_COUNT
+                if (endPos > list.size - 1) endPos = list.size
+                val subList = list.subList(startPos, endPos)
+
+                if (subList.isNotEmpty()) {
+                    insert.invoke(subList)
+                }
+            }
+        }
     }
 
 }

@@ -5,13 +5,13 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseDao.Companion.getInsertAllString
 import ru.mironov.domain.BaseTestDTO
 import ru.mironov.domain.BaseTestDTO.Companion.DATE_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.FOREIGN_ID_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.ID_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.NAME_FIELD_NAME
-import ru.mironov.domain.Constants
 import ru.mironov.sqlite.TestObject.Companion.DB_NAME
 import ru.mironov.sqlite.TestObject.Companion.TABLE_NAME
 
@@ -58,18 +58,11 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
     fun insertAllLoop(list: List<BaseTestDTO>) {
         val db = this.writableDatabase
         db.beginTransaction()
-        val repeatCount = list.size / Constants.ADD_COUNT + 1
-        repeat(repeatCount) {
-            val startPos = it * Constants.ADD_COUNT
-            var endPos = startPos + Constants.ADD_COUNT
-            if (endPos > list.size - 1) endPos = list.size
-            val subList = list.subList(startPos, endPos)
-
-            if (subList.isNotEmpty()) {
-                val insertString = getInsertAllString(subList)
-                db.execSQL(SQL_INSERT_INTO_AUTOINCREMENT + insertString)
-            }
+        val insert = fun (subList: List<BaseTestDTO>) {
+            val insertString = getInsertAllString(subList)
+            db.execSQL(SQL_INSERT_INTO_AUTOINCREMENT + insertString)
         }
+        BaseDao.insertLoop(list, insert)
         db.setTransactionSuccessful()
         db.endTransaction()
     }
