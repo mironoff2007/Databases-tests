@@ -1,7 +1,6 @@
 package ru.mironov.exposed
 
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.mironov.domain.BaseDao.Companion.SQL_SELECT_COUNT
 import ru.mironov.domain.BaseDao.Companion.TEST_OBJECT_TABLE
@@ -104,6 +103,24 @@ object TestObjectTable : Table(TEST_OBJECT_TABLE) {
                             date = it[date],
                             foreignId = it[foreignId],
                         )//.apply { this.id = it. }
+                    }
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    fun selectBetween(start: String, end: String): List<BaseTestDTO> {
+        return try {
+            transaction {
+                val list = TestObjectTable.select() { (name greater start) and (name lessEq end)}
+                    .toList()
+                    list.map {
+                        TestObject(
+                            name = it[name],
+                            date = it[date],
+                            foreignId = it[foreignId],
+                        )
                     }
             }
         } catch (e: Exception) {

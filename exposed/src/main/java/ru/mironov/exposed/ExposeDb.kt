@@ -31,7 +31,7 @@ class ExposeDb(context: Context): BaseDao {
     }
 
     override fun insertAllRawQuery(list: List<BaseTestDTO>) {
-        val query = SQL_INSERT_INTO+ BaseDao.getInsertAllString(list)
+        val query = SQL_INSERT_INTO + BaseDao.getInsertAllString(list)
         TestObjectTable.rawQueryWoRes(query)
     }
 
@@ -52,6 +52,6 @@ class ExposeDb(context: Context): BaseDao {
     }
 
     override fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO> {
-        TODO("Not yet implemented")
+        return TestObjectTable.selectBetween("name $idStart", "name $idEnd")
     }
 }
