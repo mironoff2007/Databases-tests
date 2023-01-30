@@ -17,14 +17,13 @@ class ExposeDb(context: Context): BaseDao {
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
-        /*val method = fun()  {
-            val insert = fun (subList: List<BaseTestDTO>) {
+        val method = fun() {
+            val insert = fun(subList: List<BaseTestDTO>) {
                 insertAll(subList)
             }
             BaseDao.insertLoop(list, insert)
         }
-        TestObjectTable.inTransaction(method)*/
-        TestObjectTable.insertAllBatch(list)
+        TestObjectTable.inTransaction(method)
     }
 
     override fun insertAll(list: List<BaseTestDTO>) {
