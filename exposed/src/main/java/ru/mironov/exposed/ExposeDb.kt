@@ -19,7 +19,7 @@ class ExposeDb(context: Context): BaseDao {
     override fun insertLoop(list: List<BaseTestDTO>) {
         val method = fun() {
             val insert = fun(subList: List<BaseTestDTO>) {
-                insertAll(subList)
+                insertAllRawQuery(subList)
             }
             BaseDao.insertLoop(list, insert)
         }
