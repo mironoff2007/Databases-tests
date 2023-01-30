@@ -33,7 +33,7 @@ class ExposeDb(context: Context): BaseDao {
 
     override fun insertAllRawQuery(list: List<BaseTestDTO>) {
         val query = SQL_INSERT_INTO+ BaseDao.getInsertAllString(list)
-        TestObjectTable.rawQuery(query)
+        TestObjectTable.rawQueryWoRes(query)
     }
 
     override fun insertAllSingleInTransaction(list: List<BaseTestDTO>) {

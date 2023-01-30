@@ -3,6 +3,7 @@ package ru.mironov.exposed
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import ru.mironov.domain.BaseDao.Companion.SQL_SELECT_COUNT
 import ru.mironov.domain.BaseDao.Companion.TEST_OBJECT_TABLE
 import ru.mironov.domain.BaseTestDTO
 
@@ -18,16 +19,23 @@ object TestObjectTable : Table(TEST_OBJECT_TABLE) {
         }
     }
 
-    fun rawQuery(query: String){
+    fun rawQueryWoRes(query: String){
         transaction {
-            /*val conn = TransactionManager.current().connection
-            val statement = conn.prepareStatement(query, false)
-            statement.executeUpdate()
-            statement.closeIfPossible()*/
             exec(query) { rs ->
 
             }
         }
+    }
+
+    private fun rawQueryCount(query: String): Int {
+        var count = 0
+        transaction {
+            exec(query) { res ->
+                res.next()
+                count = res.getInt(1)
+            }
+        }
+        return count
     }
 
     fun insert(obj: BaseTestDTO) {
@@ -83,7 +91,7 @@ object TestObjectTable : Table(TEST_OBJECT_TABLE) {
     }
 
     fun count(): Int {
-        return fetchAll().size
+        return rawQueryCount(SQL_SELECT_COUNT)
     }
 
     fun fetchAll(): List<BaseTestDTO> {

@@ -18,7 +18,7 @@ interface BaseDao {
 
     fun getRowsCount(): Int
 
-    fun selectBetween(idStart: Int, idEnd:Int): List<BaseTestDTO>
+    fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO>
 
 
     companion object {
@@ -31,6 +31,8 @@ interface BaseDao {
                     "${BaseTestDTO.DATE_FIELD_NAME} ," +
                     "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +
                     "VALUES"
+
+        const val SQL_SELECT_COUNT = "SELECT COUNT (*) FROM $TEST_OBJECT_TABLE"
 
         fun getInsertAllString(list: List<BaseTestDTO>): String {
             val stringBuilder = StringBuilder()
