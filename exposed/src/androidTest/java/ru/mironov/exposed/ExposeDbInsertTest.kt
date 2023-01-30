@@ -25,7 +25,7 @@ class ExposeDbInsertTest {
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    private val dbTest = DbTest(ExposeDb(appContext),  this.javaClass.name)
+    private val dbTest = DbTest(DaoExposed(appContext),  this.javaClass.name)
 
     @After
     fun after() {

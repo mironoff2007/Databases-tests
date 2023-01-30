@@ -5,7 +5,7 @@ import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseDao.Companion.SQL_INSERT_INTO
 import ru.mironov.domain.BaseTestDTO
 
-class ExposeDb(context: Context): BaseDao {
+class DaoExposed(context: Context): BaseDao {
 
     init {
         val db = context.initDatabase()
