@@ -5,14 +5,17 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import ru.mironov.domain.Constants
 import ru.mironov.domain.Constants.ADD_COUNT
 import ru.mironov.domain.DbTest
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class RawSQLiteDbInsertTest {
 
