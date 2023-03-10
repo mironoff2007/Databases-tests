@@ -9,7 +9,7 @@ import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseDao.Companion.getInsertAllString
 import ru.mironov.domain.BaseTestDTO
 import ru.mironov.domain.BaseTestDTO.Companion.DATE_FIELD_NAME
-import ru.mironov.domain.BaseTestDTO.Companion.FOREIGN_ID_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO.Companion.RELATION_ID_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.ID_FIELD_NAME
 import ru.mironov.domain.BaseTestDTO.Companion.NAME_FIELD_NAME
 import ru.mironov.sqlite.TestObject.Companion.DB_NAME
@@ -36,7 +36,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
             put(ID_FIELD_NAME, (obj as TestObject).id)
             put(NAME_FIELD_NAME, obj.name)
             put(DATE_FIELD_NAME, obj.date)
-            put(FOREIGN_ID_FIELD_NAME, obj.foreignId)
+            put(RELATION_ID_FIELD_NAME, obj.relationId)
         }
 
         db?.insert(TABLE_NAME, null, values)
@@ -80,7 +80,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
             val foreignId = cursor.getInt(DATE_FIELD_NAME) ?: 0
 
             cursor.close()
-            TestObject(id = id, name = name, date = date, foreignId = foreignId)
+            TestObject(id = id, name = name, date = date, relationId = foreignId)
         } catch (e: Exception) {
             null
         }
@@ -107,7 +107,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
                         id = id,
                         name = name,
                         date = date,
-                        foreignId = foreignId
+                        relationId = foreignId
                     )
 
                     list.add(obj)
@@ -142,7 +142,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
                         id = id,
                         name = name,
                         date = date,
-                        foreignId = foreignId
+                        relationId = foreignId
                     )
 
                     list.add(obj)
@@ -191,21 +191,21 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DATA
                     "$ID_FIELD_NAME INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "$NAME_FIELD_NAME TEXT," +
                     "$DATE_FIELD_NAME TEXT," +
-                    "$FOREIGN_ID_FIELD_NAME INTEGER)"
+                    "$RELATION_ID_FIELD_NAME INTEGER)"
 
         private const val SQL_INSERT_INTO =
             "INSERT INTO $TABLE_NAME (" +
                     "$ID_FIELD_NAME ," +
                     "$NAME_FIELD_NAME ," +
                     "$DATE_FIELD_NAME ," +
-                    "$FOREIGN_ID_FIELD_NAME ) " +
+                    "$RELATION_ID_FIELD_NAME ) " +
                     "VALUES"
 
         private const val SQL_INSERT_INTO_AUTOINCREMENT =
             "INSERT INTO $TABLE_NAME (" +
                     "$NAME_FIELD_NAME ," +
                     "$DATE_FIELD_NAME ," +
-                    "$FOREIGN_ID_FIELD_NAME ) " +
+                    "$RELATION_ID_FIELD_NAME ) " +
                     "VALUES"
 
         private const val SQL_ROWS_COUNT = "SELECT COUNT(*) FROM $TABLE_NAME "

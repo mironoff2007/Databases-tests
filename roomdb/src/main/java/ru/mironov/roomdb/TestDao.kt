@@ -47,7 +47,7 @@ interface TestDao {
                 append(obj.date)
                 append("'")
                 append(", ")
-                append(obj.foreignId)
+                append(obj.relationId)
                 append("),")
             }
         }
@@ -57,7 +57,7 @@ interface TestDao {
         val insertInto = "INSERT INTO $TABLE_NAME (" +
                 "${BaseTestDTO.NAME_FIELD_NAME} ," +
                 "${BaseTestDTO.DATE_FIELD_NAME} ," +
-                "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +
+                "${BaseTestDTO.RELATION_ID_FIELD_NAME} ) " +
                 "VALUES"
         return SimpleSQLiteQuery(insertInto + stringBuilder.toString())
     }

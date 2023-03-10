@@ -30,7 +30,7 @@ object TestObjectsTable : Table() {
                         TestObject(
                             name = it[name],
                             date = it[date],
-                            foreignId = 0,
+                            relationId = 0,
                         ).apply { id = it[TestObjectsTable.id] }
                     }
             }

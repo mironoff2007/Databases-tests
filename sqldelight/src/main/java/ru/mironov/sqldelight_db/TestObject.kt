@@ -8,8 +8,8 @@ import java.util.*
 data class TestObject(
     override val name: String,
     override val date: String,
-    override val foreignId: Int
-): BaseTestDTO(name, date, foreignId) {
+    override val relationId: Int
+): BaseTestDTO(name, date, relationId) {
 
     var id: Long = 0L
 
@@ -22,7 +22,7 @@ data class TestObject(
                 val obj = TestObject(
                     name = "name $ind",
                     date = Date().toString(),
-                    foreignId = ind
+                    relationId = ind
                 )
                 obj.id = ind.toLong()
                 list.add(obj)

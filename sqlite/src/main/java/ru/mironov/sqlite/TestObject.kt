@@ -8,8 +8,8 @@ data class TestObject(
     val id: Long = 0L,
     override val name: String,
     override val date: String,
-    override val foreignId: Int
-): BaseTestDTO(name, date, foreignId) {
+    override val relationId: Int
+): BaseTestDTO(name, date, relationId) {
 
     companion object {
         const val DB_NAME = "db_sqlite"
@@ -24,7 +24,7 @@ data class TestObject(
                         id = ind.toLong(),
                         name = "name $ind",
                         date = Date().toString(),
-                        foreignId = ind)
+                        relationId = ind)
                 )
             }
             return list

@@ -9,8 +9,8 @@ import java.util.*
 data class TestObject(
     override val name: String,
     override val date: String,
-    override val foreignId: Int
-): BaseTestDTO(name, date, foreignId) {
+    override val relationId: Int
+): BaseTestDTO(name, date, relationId) {
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L
@@ -27,7 +27,7 @@ data class TestObject(
                     TestObject(
                         name = "name $ind",
                         date = Date().toString(),
-                        foreignId = ind)
+                        relationId = ind)
                 )
             }
             return list

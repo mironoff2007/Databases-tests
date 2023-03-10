@@ -14,7 +14,7 @@ class DaoSqlDelight(
 
     override fun insert(obj: BaseTestDTO) {
         val testObj = obj as TestObject
-        queries.insertTestObject(id = obj.id, name = obj.name, date = testObj.date, foreignId = testObj.foreignId.toLong())
+        queries.insertTestObject(id = obj.id, name = obj.name, date = testObj.date, foreignId = testObj.relationId.toLong())
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
@@ -74,21 +74,21 @@ class DaoSqlDelight(
                     "${BaseTestDTO.ID_FIELD_NAME} INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "${BaseTestDTO.NAME_FIELD_NAME} TEXT," +
                     "${BaseTestDTO.DATE_FIELD_NAME} TEXT," +
-                    "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} INTEGER)"
+                    "${BaseTestDTO.RELATION_ID_FIELD_NAME} INTEGER)"
 
         private const val SQL_INSERT_INTO =
             "INSERT INTO testObjectEntity (" +
                     "${BaseTestDTO.ID_FIELD_NAME} ," +
                     "${BaseTestDTO.NAME_FIELD_NAME} ," +
                     "${BaseTestDTO.DATE_FIELD_NAME} ," +
-                    "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +
+                    "${BaseTestDTO.RELATION_ID_FIELD_NAME} ) " +
                     "VALUES"
 
         private const val SQL_INSERT_INTO_AUTOINCREMENT =
             "INSERT INTO testObjectEntity (" +
                     "${BaseTestDTO.NAME_FIELD_NAME} ," +
                     "${BaseTestDTO.DATE_FIELD_NAME} ," +
-                    "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +
+                    "${BaseTestDTO.RELATION_ID_FIELD_NAME} ) " +
                     "VALUES"
 
     }

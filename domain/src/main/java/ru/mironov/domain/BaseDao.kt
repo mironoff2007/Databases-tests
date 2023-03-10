@@ -29,7 +29,7 @@ interface BaseDao {
             "INSERT INTO $TEST_OBJECT_TABLE (" +
                     "${BaseTestDTO.NAME_FIELD_NAME} ," +
                     "${BaseTestDTO.DATE_FIELD_NAME} ," +
-                    "${BaseTestDTO.FOREIGN_ID_FIELD_NAME} ) " +
+                    "${BaseTestDTO.RELATION_ID_FIELD_NAME} ) " +
                     "VALUES"
 
         const val SQL_SELECT_COUNT = "SELECT COUNT (*) FROM $TEST_OBJECT_TABLE"
@@ -47,7 +47,7 @@ interface BaseDao {
                     append(obj.date)
                     append("'")
                     append(", ")
-                    append(obj.foreignId)
+                    append(obj.relationId)
                     append("),")
                 }
             }
