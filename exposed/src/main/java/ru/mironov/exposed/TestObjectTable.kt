@@ -5,12 +5,15 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import ru.mironov.domain.BaseDao.Companion.SQL_SELECT_COUNT
 import ru.mironov.domain.BaseDao.Companion.TEST_OBJECT_TABLE
 import ru.mironov.domain.BaseTestDTO
+import ru.mironov.domain.BaseTestDTO.Companion.DATE_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO.Companion.FOREIGN_ID_FIELD_NAME
+import ru.mironov.domain.BaseTestDTO.Companion.NAME_FIELD_NAME
 
 object TestObjectTable : Table(TEST_OBJECT_TABLE) {
 
-    private val name = TestObjectTable.varchar(name = "name", length = 150)
-    private val date = TestObjectTable.varchar(name = "date", length = 50)
-    private var foreignId = TestObjectTable.integer(name = "foreignId")
+    private val name = TestObjectTable.varchar(name = NAME_FIELD_NAME, length = 150)
+    private val date = TestObjectTable.varchar(name = DATE_FIELD_NAME, length = 50)
+    private val foreignId = TestObjectTable.integer(name = FOREIGN_ID_FIELD_NAME)
 
     fun initDb(database: Database) {
         transaction(database) {
@@ -119,7 +122,7 @@ object TestObjectTable : Table(TEST_OBJECT_TABLE) {
                         TestObject(
                             name = it[name],
                             date = it[date],
-                            foreignId = it[foreignId],
+                            foreignId = it[foreignId].toInt(),
                         )
                     }
             }

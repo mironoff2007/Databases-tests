@@ -11,7 +11,7 @@ abstract class BaseTestDTO(
         const val ID_FIELD_NAME = "id"
         const val NAME_FIELD_NAME = "name"
         const val DATE_FIELD_NAME = "date"
-        const val FOREIGN_ID_FIELD_NAME= "foreignId"
+        const val FOREIGN_ID_FIELD_NAME = "FOREIGN_ID"
 
     }
 }
