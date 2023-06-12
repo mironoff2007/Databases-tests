@@ -81,23 +81,6 @@ class DaoSqlDelight(
     }
 
     companion object {
-        // If you change the database schema, you must increment the database version.
-        const val DATABASE_VERSION = 1
-
-        private const val SQL_CREATE_ENTRIES =
-            "CREATE TABLE testObjectEntity (" +
-                    "${BaseTestDTO.ID_FIELD_NAME} INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "${BaseTestDTO.NAME_FIELD_NAME} TEXT," +
-                    "${BaseTestDTO.DATE_FIELD_NAME} TEXT," +
-                    "${BaseTestDTO.RELATION_ID_FIELD_NAME} INTEGER)"
-
-        private const val SQL_INSERT_INTO =
-            "INSERT INTO testObjectEntity (" +
-                    "${BaseTestDTO.ID_FIELD_NAME} ," +
-                    "${BaseTestDTO.NAME_FIELD_NAME} ," +
-                    "${BaseTestDTO.DATE_FIELD_NAME} ," +
-                    "${BaseTestDTO.RELATION_ID_FIELD_NAME} ) " +
-                    "VALUES"
 
         private const val SQL_INSERT_INTO_AUTOINCREMENT =
             "INSERT INTO testObjectEntity (" +
