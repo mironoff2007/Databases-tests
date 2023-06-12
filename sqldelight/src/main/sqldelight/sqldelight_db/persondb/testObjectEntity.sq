@@ -2,7 +2,7 @@ CREATE TABLE testObjectEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     date TEXT NOT NULL,
     name TEXT NOT NULL,
-    foreignId INTEGER NOT NULL
+    relationId INTEGER NOT NULL
 );
 
 getTestObjectById:

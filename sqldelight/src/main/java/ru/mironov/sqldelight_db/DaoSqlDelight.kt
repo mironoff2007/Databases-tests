@@ -14,7 +14,12 @@ class DaoSqlDelight(
 
     override fun insert(obj: BaseTestDTO) {
         val testObj = obj as TestObject
-        queries.insertTestObject(id = obj.id, name = obj.name, date = testObj.date, foreignId = testObj.relationId.toLong())
+        queries.insertTestObject(
+            id = obj.id,
+            name = obj.name,
+            date = testObj.date,
+            relationId = testObj.relationId.toLong()
+        )
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
@@ -25,7 +30,12 @@ class DaoSqlDelight(
     }
 
     override fun insertAll(list: List<BaseTestDTO>) {
-        driver.execute(sql = SQL_INSERT_INTO_AUTOINCREMENT + BaseDao.getInsertAllString(list), parameters = 0, binders = null, identifier = null)
+        driver.execute(
+            sql = SQL_INSERT_INTO_AUTOINCREMENT + BaseDao.getInsertAllString(list),
+            parameters = 0,
+            binders = null,
+            identifier = null
+        )
     }
 
 
@@ -52,14 +62,19 @@ class DaoSqlDelight(
     }
 
     override fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO> {
-        return queries.selectBetween(idStart = "name $idStart", idEnd = "name $idEnd").executeAsList().map { it.toBaseObject() }
+        return queries.selectBetween(
+            idStart = "name $idStart",
+            idEnd = "name $idEnd"
+        )
+            .executeAsList()
+            .map { it.toBaseObject() }
     }
 
     fun TestObjectEntity.toBaseObject(): BaseTestDTO {
         val obj = TestObject(
             date = this.date,
             name = this. name,
-            foreignId = this.foreignId.toInt()
+            relationId = this.relationId.toInt()
         )
         obj.id = this.id
         return obj
