@@ -3,7 +3,7 @@ package ru.mironov.sqldelight_db
 import com.squareup.sqldelight.db.SqlDriver
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
-import sqldelightdb.persondb.TestObjectEntity
+import sqldelightdb.TestObjectEntity
 
 class DaoSqlDelight(
     private val db: TestObjectsDb,
