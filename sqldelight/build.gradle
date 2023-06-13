@@ -42,19 +42,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    /*def sqldelight_version = "1.5.2"
-    implementation "com.squareup.sqldelight:gradle-plugin:$sqldelight_version"
-    implementation "com.squareup.sqldelight:runtime:$sqldelight_version"
-    implementation "com.squareup.sqldelight:android-driver:$sqldelight_version"*/
-
+    
     // SQL Delight
     implementation "com.squareup.sqldelight:android-driver:1.5.2"
     implementation "com.squareup.sqldelight:coroutines-extensions-jvm:1.5.2"
 
-    def exposed_version="0.37.3"
-    implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
-    implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
 }
 
 sqldelight {
