@@ -23,10 +23,10 @@ class RoomDbSelectTest {
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
+    private val dbTest = DbTest(DaoRoom(appContext), this.javaClass.name)
 
     @After
-    fun after(){
+    fun after() {
         dbTest.clear()
     }
 
@@ -39,7 +39,7 @@ class RoomDbSelectTest {
         }
 
         val idStart = SELECT_BETWEEN_START
-        val idEnd =  SELECT_BETWEEN_END
+        val idEnd = SELECT_BETWEEN_END
 
         val assertAddedCount = fun(count: Int) {
             assertEquals(EXPECT_BETWEEN_STRING, count)

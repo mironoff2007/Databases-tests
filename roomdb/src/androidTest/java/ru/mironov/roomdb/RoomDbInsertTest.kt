@@ -25,10 +25,10 @@ class RoomDbInsertTest {
 
     private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    private val dbTest = DbTest(DaoRoom(appContext),  this.javaClass.name)
+    private val dbTest = DbTest(DaoRoom(appContext), this.javaClass.name)
 
     @After
-    fun after(){
+    fun after() {
         dbTest.clear()
     }
 
@@ -79,7 +79,7 @@ class RoomDbInsertTest {
     }
 
     @Test
-    fun insertAllSingleInTransactionDBnoConfTest() = runBlocking{
+    fun insertAllSingleInTransactionDBnoConfTest() = runBlocking {
         val list = TestObject.createMockList(ADD_COUNT)
 
         val assertClear = fun(count: Int) {

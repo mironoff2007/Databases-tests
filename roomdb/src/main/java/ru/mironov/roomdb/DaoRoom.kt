@@ -1,11 +1,9 @@
 package ru.mironov.roomdb
 
 import android.content.Context
-import androidx.sqlite.db.SimpleSQLiteQuery
 import ru.mironov.domain.BaseDao
 import ru.mironov.domain.BaseTestDTO
-import ru.mironov.domain.Constants.ADD_COUNT
-import ru.mironov.roomdb.TestObject.Companion.TABLE_NAME
+
 
 class DaoRoom(context: Context) : BaseDao {
 
@@ -16,7 +14,7 @@ class DaoRoom(context: Context) : BaseDao {
     }
 
     override fun insertLoop(list: List<BaseTestDTO>) {
-       dao.inInsertLoop(list)
+        dao.inInsertLoop(list)
     }
 
     override fun insertAll(list: List<BaseTestDTO>) {
@@ -46,7 +44,7 @@ class DaoRoom(context: Context) : BaseDao {
         return dao.getRowsCount()
     }
 
-    override fun selectBetween(idStart: Int, idEnd:Int): List<BaseTestDTO> {
+    override fun selectBetween(idStart: Int, idEnd: Int): List<BaseTestDTO> {
         return dao.selectBetween("name $idStart", "name $idEnd")
     }
 }
